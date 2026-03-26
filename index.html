@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMÓN OCAMPO | SYSTEMS ANALYST</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link href="./assets/css/styles.css" rel="stylesheet">
+    <style>
+        html.lenis,
+        html.lenis body {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--surface-container-highest);
+        }
+
+        .glass-nav {
+            background: rgba(var(--background), 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        /* Magnetic Button Base Styles */
+        .magnetic-wrap {
+            display: inline-block;
+            position: relative;
+        }
+
+        .magnetic-area {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            border-radius: 50%;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        /* Project Preview Container */
+        #project-preview {
+            pointer-events: none;
+            mix-blend-mode: normal;
+            z-index: 50;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .project-reveal-img {
+            opacity: 0;
+            transform: scale(1.1);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-reveal-img.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Hero Image Parallax Container */
+        .hero-img-wrapper {
+            clip-path: inset(0 0 0 0);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
+
+    <!-- PRELOADER -->
+    <div id="preloader" class="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center">
+        <h1 class="font-headline text-6xl md:text-9xl font-bold text-white tracking-tighter overflow-hidden text-center leading-[0.9]">
+            <span class="block md:inline-block translate-y-full preloader-text">SIMÓN</span>
+            <span class="block md:inline-block md:ml-4 translate-y-full preloader-text text-[#7c9885]">OCAMPO</span>
+        </h1>
+        <div class="mt-4 w-64 h-[1px] bg-white/10 overflow-hidden relative">
+            <div class="absolute inset-0 bg-[#7c9885] translate-x-[-100%] preloader-line"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header
+        class="fixed top-0 left-0 w-full z-50 py-8 px-6 md:px-12 text-white flex justify-between items-center pointer-events-none">
+        <!-- Logo -->
+        <div class="pointer-events-auto">
+            <a href="#"
+                class="font-headline font-bold text-xl tracking-tighter hover:scale-110 hover:opacity-70 transition-all duration-300"
+                data-magnetic>STO</a>
+        </div>
+
+        <!-- Desktop Navigation (Visible on md+) -->
+        <nav class="hidden md:flex items-center gap-8 pointer-events-auto">
+            <a href="#work" class="font-body text-sm font-medium hover:opacity-70 hover:scale-105 transition-all duration-300" data-magnetic
+                data-i18n="nav.work">WORK</a>
+            <a href="#about" class="font-body text-sm font-medium hover:opacity-70 hover:scale-105 transition-all duration-300" data-magnetic
+                data-i18n="nav.about">ABOUT</a>
+            <a href="#contact" class="font-body text-sm font-medium hover:opacity-70 hover:scale-105 transition-all duration-300" data-magnetic
+                data-i18n="nav.contact">CONTACT</a>
+            <button id="lang-toggle-desktop"
+                class="font-body text-sm font-medium hover:opacity-70 hover:scale-105 transition-all duration-300 ml-4" data-magnetic>EN</button>
+        </nav>
+
+        <!-- Mobile Menu Toggle (Visible on sm only) -->
+        <div class="md:hidden pointer-events-auto flex items-center gap-6">
+            <button id="menu-toggle"
+                class="font-body text-sm font-medium hover:opacity-70 transition-opacity flex items-center gap-2 group relative z-50"
+                data-magnetic>
+                <div class="w-2 h-2 bg-white rounded-full group-hover:scale-150 transition-transform duration-300">
+                </div>
+                <span id="menu-text" data-i18n="nav.menu">MENU</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Menu Overlay (Mobile Only) -->
+    <div id="menu-overlay"
+        class="fixed inset-0 bg-background z-40 transform translate-y-full transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] flex flex-col justify-center items-center md:hidden">
+        <nav class="flex flex-col items-center gap-8">
+            <a href="#work"
+                class="nav-link text-5xl font-headline font-bold text-neutral-500 hover:text-white transition-colors duration-300"
+                data-magnetic data-i18n="nav.work">WORK</a>
+            <a href="#about"
+                class="nav-link text-5xl font-headline font-bold text-neutral-500 hover:text-white transition-colors duration-300"
+                data-magnetic data-i18n="nav.about">ABOUT</a>
+            <a href="#contact"
+                class="nav-link text-5xl font-headline font-bold text-neutral-500 hover:text-white transition-colors duration-300"
+                data-magnetic data-i18n="nav.contact">CONTACT</a>
+        </nav>
+        <!-- Language Switcher REMOVED from Mobile Menu as requested -->
+    </div>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative h-screen w-full overflow-hidden bg-[#7c9885]">
+
+            <!-- Hero Background Image (Parallax Removed for framing accuracy) -->
+            <div class="hero-img-wrapper absolute inset-0 w-full h-full z-0">
+                <img src="./assets/img/hero-simon.png" alt="Simón Ocampo"
+                    class="w-full h-full object-cover object-top opacity-100">
+            </div>
+
+            <!-- Content Overlay -->
+            <div class="absolute inset-0 z-10 flex flex-col justify-end pb-8 md:pb-12 px-4 md:px-8 pointer-events-none">
+                <div class="max-w-screen-2xl mx-auto w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
+
+                    <!-- Left: Name -->
+                    <div class="relative pointer-events-auto">
+                        <h1
+                            class="font-headline text-[18vw] sm:text-[16vw] md:text-[10vw] leading-[0.82] font-bold text-white tracking-tighter drop-shadow-lg">
+                            SIMÓN<br>
+                            <span class="text-white">OCAMPO</span>
+                        </h1>
+                    </div>
+
+                    <!-- Right: Roles & Description -->
+                    <div
+                        class="flex flex-col gap-6 md:text-right items-start md:items-end pb-2 md:pb-4 pointer-events-auto">
+                        <div class="flex flex-col gap-1 drop-shadow-md text-left md:text-right">
+                            <span class="font-body text-sm text-white uppercase tracking-widest font-bold" data-i18n="hero.role1">Systems
+                                Analyst</span>
+                            <span class="font-body text-sm text-neutral-200 uppercase tracking-widest" data-i18n="hero.role2">Systems
+                                Engineering Student</span>
+                            <span class="font-body text-sm text-neutral-200 uppercase tracking-widest" data-i18n="hero.role3">Full Stack
+                                Developer</span>
+                        </div>
+                        <p class="font-body text-base text-neutral-100 max-w-xs leading-relaxed text-right hidden md:block drop-shadow-md"
+                            data-i18n="hero.role">
+                            Specializing in scalable web architectures and accessible software solutions. Independent Researcher in Philosophy & Theology.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- WORK SECTION (Accordion Style Restored) -->
+        <section id="work" class="py-32 px-6 md:px-12 bg-background relative z-10">
+            <div class="max-w-screen-2xl mx-auto">
+                <div class="mobile-profile-description mb-24 md:hidden">
+                    <p class="font-body text-base text-neutral-300 leading-relaxed max-w-2xl text-left" data-i18n="hero.role">
+                        Specializing in scalable web architectures and accessible software solutions. Independent Researcher in Philosophy & Theology.
+                    </p>
+                </div>
+                <div class="mb-24 flex items-baseline gap-4">
+                    <span class="w-3 h-3 bg-[#7c9885] rounded-full"></span>
+                    <h2 class="font-headline text-xs tracking-[0.3em] text-[#7c9885] uppercase" data-i18n="work.title">
+                        Selected Works</h2>
+                </div>
+
+                <!-- Projects List Container -->
+                <div class="flex flex-col border-t border-white/10">
+
+                    <!-- Project 1: Adaptability Module -->
+                    <div
+                        class="project-accordion group border-b border-white/10 overflow-hidden transition-colors duration-500">
+                        <!-- Header (Matches original style: py-16, full width) -->
+                        <button
+                            class="project-header w-full py-16 flex flex-col md:flex-row justify-between items-start md:items-center text-left transition-colors duration-500 outline-none">
+                            <h3
+                                class="font-headline text-4xl md:text-6xl text-white group-hover:text-[#7c9885] transition-colors duration-300">
+                                <span data-i18n="work.project1.title">Data Acquisition Adaptability</span></h3>
+                            <div class="flex items-center gap-8 mt-4 md:mt-0">
+                                <span
+                                    class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project1.meta">Software
+                                    Dev / 2024</span>
+                                <span
+                                    class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#7c9885]">expand_more</span>
+                            </div>
+                        </button>
+
+                        <!-- Content (Hidden by default) -->
+                        <div class="project-content h-0 overflow-hidden">
+                            <div class="pb-12 pt-0 px-0 md:px-8">
+
+                                <!-- Description Below Title -->
+                                <div class="mb-12 max-w-3xl">
+                                    <p class="font-body text-lg text-neutral-300 leading-relaxed mb-6" data-i18n="work.project1.desc">
+                                        Development of an adaptability module for data acquisition software,
+                                        specifically designed to empower visually impaired users. This solution
+                                        implements high-contrast interfaces, screen-reader compatibility, and auditory
+                                        feedback loops.
+                                    </p>
+                                    <div class="flex flex-wrap gap-4">
+                                        <span
+                                            class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">Python</span>
+                                        <span
+                                            class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">Accessibility</span>
+                                        <span
+                                            class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">Tkinter</span>
+                                    </div>
+                                </div>
+
+                                <!-- Image Carousel (Horizontal Scroll) -->
+                                <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel"> <!-- Changed overflow-x-auto to overflow-hidden -->
+                                    <div class="flex gap-6 min-w-max">
+                                        <!-- Placeholder 1 -->
+                                        <div
+                                            class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-lg overflow-hidden relative shrink-0">
+                                            <img src="https://picsum.photos/seed/arch1/800/600" alt="Interface"
+                                                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
+                                        </div>
+                                        <!-- Placeholder 2 -->
+                                        <div
+                                            class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-lg overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5">
+                                            <span class="text-neutral-500 font-body uppercase tracking-widest" data-i18n="work.project1.card2">
+                                                Details
+                                                View</span>
+                                        </div>
+                                        <!-- Placeholder 3 -->
+                                        <div
+                                            class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-lg overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5">
+                                            <span data-i18n="work.project1.card3"
+                                                class="text-neutral-500 font-body uppercase tracking-widest">Accessibility
+                                                Mode</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Kinesiology App -->
+                    <div
+                        class="project-accordion group border-b border-white/10 overflow-hidden transition-colors duration-500">
+                        <button
+                            class="project-header w-full py-16 flex flex-col md:flex-row justify-between items-start md:items-center text-left transition-colors duration-500 outline-none">
+                            <h3
+                                class="font-headline text-4xl md:text-6xl text-white group-hover:text-[#7c9885] transition-colors duration-300">
+                                <span data-i18n="work.project2.title">Kinesiology Management</span></h3>
+                            <div class="flex items-center gap-8 mt-4 md:mt-0">
+                                <span
+                                    class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project2.meta">Web
+                                    App / 2023</span>
+                                <span
+                                    class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#7c9885]">expand_more</span>
+                            </div>
+                        </button>
+
+                        <div class="project-content h-0 overflow-hidden">
+                            <div class="pb-12 pt-0 px-0 md:px-8">
+
+                                <div class="mb-12 max-w-3xl">
+                                    <p class="font-body text-lg text-neutral-300 leading-relaxed mb-6" data-i18n="work.project2.desc">
+                                        A comprehensive web application for a kinesiology center, enabling secure
+                                        management of patient medical records, appointment scheduling, and treatment
+                                        history. Built with a robust Django backend and a reactive React frontend.
+                                    </p>
+                                    <div class="flex flex-wrap gap-4">
+                                        <span
+                                            class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">Django</span>
+                                        <span
+                                            class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">React</span>
+                                        <span
+                                            class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">PostgreSQL</span>
+                                    </div>
+                                </div>
+
+                            <!-- Image Carousel -->
+                                <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
+                                    <div class="flex gap-6 min-w-max">
+                                        <div
+                                            class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-lg overflow-hidden relative shrink-0">
+                                            <img src="https://picsum.photos/seed/kine1/800/600" alt="Dashboard"
+                                                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
+                                        </div>
+                                        <div
+                                            class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-lg overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5">
+                                             <img src="https://picsum.photos/seed/kine2/800/600" alt="Patient Records"
+                                                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
+                                        </div>
+                                        <div
+                                            class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-lg overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5">
+                                             <img src="https://picsum.photos/seed/kine3/800/600" alt="Scheduler UI"
+                                                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-24 flex justify-center">
+                    <button type="button"
+                        class="relative px-8 py-4 bg-transparent border border-[#7c9885] text-[#7c9885] font-body font-medium uppercase tracking-widest hover:text-white hover:border-[#4a5f50] transition-all duration-300 overflow-hidden group rounded-full"
+                        >
+                        <span class="relative z-20 group-hover:text-white transition-colors duration-300" data-i18n="work.archive">View Archive</span>
+                        <span class="absolute inset-0 bg-[#4a5f50] z-10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACADEMIC PUBLICATIONS SECTION (New) -->
+        <section id="academic" class="py-32 px-6 md:px-12 bg-surface text-white border-t border-white/5">
+            <div class="max-w-screen-2xl mx-auto">
+                <div class="mb-24 flex items-baseline gap-4">
+                    <span class="w-3 h-3 bg-[#7c9885] rounded-full"></span>
+                    <h2 class="font-headline text-xs tracking-[0.3em] text-[#7c9885] uppercase" data-i18n="academic.sectionLabel">Academic Research</h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                    <div class="lg:col-span-4 mb-8 lg:mb-0">
+                        <h2 class="font-headline text-4xl font-bold leading-tight mb-8" data-i18n="academic.title">
+                            Philosophy of Religion & Analytic Theology
+                        </h2>
+                        <p class="font-body text-neutral-400 leading-relaxed mb-8" data-i18n="academic.desc">
+                            Independent research published in international journals and indexed repositories. Focusing
+                            on stage II cosmological arguments and historical reliability of religious texts.
+                        </p>
+                        <a href="https://orcid.org/0009-0002-6246-9261" target="_blank"
+                            class="inline-flex items-center gap-2 text-[#7c9885] border-b border-[#7c9885]/50 pb-1 hover:text-white hover:border-white transition-colors">
+                            <span class="uppercase tracking-widest text-xs" data-i18n="academic.orcid">ORCID Profile</span>
+                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                        </a>
+                    </div>
+                    <div class="lg:col-span-8 flex flex-col gap-12">
+
+                        <!-- Publication 1 -->
+                        <a href="https://rdcu.be/dWvzi" target="_blank" class="block">
+                        <div class="group border-b border-white/10 pb-12 hover:border-[#7c9885]/50 transition-colors duration-500 cursor-pointer">
+                            <div class="flex justify-between items-baseline mb-4">
+                                <span class="font-body text-xs text-[#7c9885] uppercase tracking-widest" data-i18n="academic.pub1.type">Q1 Journal /
+                                    2024</span>
+                                <span
+                                    class="font-body text-xs text-neutral-500 uppercase tracking-widest" data-i18n="academic.pub1.lang">English</span>
+                            </div>
+                            <h3
+                                class="font-headline text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-[#7c9885] transition-colors">
+                                <span data-i18n="academic.pub1.title">Strategies for stage II of cosmological arguments</span></h3>
+                            <p class="font-body text-neutral-400 italic" data-i18n="academic.pub1.source">International Journal for Philosophy of
+                                Religion, 96(1), 55-88.</p>
+                        </div>
+                    </a>
+
+                        <!-- Publication 2 -->
+                        <a href="https://philpapers.org/rec/OCAEPL" target="_blank" class="block">
+                        <div class="group border-b border-white/10 pb-12 hover:border-[#7c9885]/50 transition-colors duration-500 cursor-pointer">
+                            <div class="flex justify-between items-baseline mb-4">
+                                <span class="font-body text-xs text-[#7c9885] uppercase tracking-widest" data-i18n="academic.pub2.type">Pre-print /
+                                    2023</span>
+                                <span
+                                    class="font-body text-xs text-neutral-500 uppercase tracking-widest" data-i18n="academic.pub2.lang">Spanish</span>
+                            </div>
+                            <h3
+                                class="font-headline text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-[#7c9885] transition-colors">
+                                <span data-i18n="academic.pub2.title">Estrategias para la Fase II de los Argumentos Cosmológicos</span></h3>
+                            <p class="font-body text-neutral-400 italic" data-i18n="academic.pub2.source">Independent Research Repository</p>
+                        </div>
+                    </a>
+
+                        <!-- Publication 3 -->
+                        <a href="https://philpapers.org/rec/OCALCH" target="_blank" class="block">
+                        <div class="group border-b border-white/10 pb-12 hover:border-[#7c9885]/50 transition-colors duration-500 cursor-pointer">
+                            <div class="flex justify-between items-baseline mb-4">
+                                <span class="font-body text-xs text-[#7c9885] uppercase tracking-widest" data-i18n="academic.pub3.type">Essay /
+                                    2022</span>
+                                <span
+                                    class="font-body text-xs text-neutral-500 uppercase tracking-widest" data-i18n="academic.pub3.lang">Spanish</span>
+                            </div>
+                            <h3
+                                class="font-headline text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-[#7c9885] transition-colors">
+                                <span data-i18n="academic.pub3.title">La Confiabilidad Histórica de los Evangelios</span></h3>
+                            <p class="font-body text-neutral-400 italic" data-i18n="academic.pub3.source">Historical Analysis</p>
+                        </div>
+                    </a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Preview Floating Image REMOVED -->
+
+        <!-- ABOUT / STACK SECTION (Updated Skills) -->
+        <section id="about" class="py-32 px-6 md:px-12 bg-background text-white">
+            <div class="max-w-screen-2xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                    <div class="lg:col-span-4">
+                        <p class="font-body text-xs tracking-[0.3em] uppercase text-neutral-500 mb-8"
+                            data-i18n="about.label">/ Arsenal</p>
+                        <h2 class="font-headline text-4xl font-bold leading-tight" data-i18n="about.title">
+                            The toolkit for modern digital craftsmanship.
+                        </h2>
+                    </div>
+                    <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+                        <!-- Skill Group 1: Development -->
+                        <div class="space-y-4">
+                            <h3 class="font-headline text-xl text-neutral-400" data-i18n="stack.frontend">Development
+                            </h3>
+                            <div class="h-px w-full bg-white/10"></div>
+                            <p class="font-body text-lg leading-relaxed">
+                                Python, Django, React, JavaScript, Tailwind CSS, HTML5, CSS3, Tkinter
+                            </p>
+                        </div>
+                        <!-- Skill Group 2: Design -->
+                        <div class="space-y-4">
+                            <h3 class="font-headline text-xl text-neutral-400" data-i18n="stack.design">Design</h3>
+                            <div class="h-px w-full bg-white/10"></div>
+                            <p class="font-body text-lg leading-relaxed">
+                                Adobe Photoshop, UI/UX Prototyping, Responsive Design
+                            </p>
+                        </div>
+                        <!-- Skill Group 3: Research -->
+                        <div class="space-y-4">
+                            <h3 class="font-headline text-xl text-neutral-400" data-i18n="stack.analysis">Research &
+                                Philosophy</h3>
+                            <div class="h-px w-full bg-white/10"></div>
+                            <p class="font-body text-lg leading-relaxed">
+                                Analytic Theology, Metaphysics, History, Philosophy of Religion
+                            </p>
+                        </div>
+                        <!-- Skill Group 4: Languages -->
+                        <div class="space-y-4">
+                            <h3 class="font-headline text-xl text-neutral-400" data-i18n="stack.backend">Languages</h3>
+                            <div class="h-px w-full bg-white/10"></div>
+                            <p class="font-body text-lg leading-relaxed">
+                                Spanish (Native), English (Advanced)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER / CONTACT FORM -->
+    <footer id="contact" class="relative bg-surface text-white pt-32 pb-12 px-6 md:px-12 mt-24">
+        <div class="max-w-screen-2xl mx-auto">
+            
+            <!-- Contact Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                
+                <!-- Form Questions (Left Side) -->
+                <div class="lg:col-span-8">
+                    <form class="space-y-16" action="#" method="POST">
+                        
+                        <!-- Question 1: Name -->
+                        <div class="border-b border-white/10 pb-8">
+                            <div class="flex items-baseline gap-4 mb-6">
+                                <span class="text-neutral-600 font-body text-sm">01</span>
+                                <label for="name" class="font-headline text-2xl md:text-3xl" data-i18n="contact.form.name">Name</label>
+                            </div>
+                            <input type="text" id="name" name="name" placeholder="John Doe *" required data-i18n-placeholder="contact.form.namePlaceholder"
+                                style="background-color: transparent !important; background-image: none !important; box-shadow: none !important;"
+                                class="w-full bg-transparent border-none appearance-none focus:outline-none focus:ring-0 text-neutral-500 placeholder-neutral-600 font-body text-lg">
+                        </div>
+                        
+                        <!-- Question 2: Email -->
+                        <div class="border-b border-white/10 pb-8">
+                            <div class="flex items-baseline gap-4 mb-6">
+                                <span class="text-neutral-600 font-body text-sm">02</span>
+                                <label for="email" class="font-headline text-2xl md:text-3xl" data-i18n="contact.form.email">Email</label>
+                            </div>
+                            <input type="email" id="email" name="email" placeholder="john@doe.com *" required data-i18n-placeholder="contact.form.emailPlaceholder"
+                                style="background-color: transparent !important; background-image: none !important; box-shadow: none !important;"
+                                class="w-full bg-transparent border-none appearance-none focus:outline-none focus:ring-0 text-neutral-500 placeholder-neutral-600 font-body text-lg">
+                        </div>
+                        
+                        <!-- Question 3: Message -->
+                        <div class="border-b border-white/10 pb-8">
+                            <div class="flex items-baseline gap-4 mb-6">
+                                <span class="text-neutral-600 font-body text-sm">03</span>
+                                <label for="message" class="font-headline text-2xl md:text-3xl" data-i18n="contact.form.message">Message</label>
+                            </div>
+                            <input type="text" id="message" name="message" placeholder="Tell me about your project..." data-i18n-placeholder="contact.form.messagePlaceholder"
+                                style="background-color: transparent !important; background-image: none !important; box-shadow: none !important;"
+                                class="w-full bg-transparent border-none appearance-none focus:outline-none focus:ring-0 text-neutral-500 placeholder-neutral-600 font-body text-lg">
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div class="pt-8">
+                            <button type="submit" 
+                                class="relative px-8 py-4 bg-transparent border border-[#7c9885] text-[#7c9885] font-body font-medium uppercase tracking-widest hover:text-white hover:border-[#4a5f50] transition-all duration-300 overflow-hidden group rounded-full">
+                                <span class="relative z-20 group-hover:text-white transition-colors duration-300" data-i18n="contact.submit">Send Message</span>
+                                <span class="absolute inset-0 bg-[#4a5f50] z-10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Contact Info Sidebar (Right Side) -->
+                <div class="lg:col-span-4 space-y-12">
+                    
+                    <!-- Contact Details -->
+                    <div>
+                        <h3 class="font-body text-xs uppercase tracking-widest text-neutral-600 mb-6" data-i18n="contact.details">Contact Details</h3>
+                        <div class="space-y-4">
+                            <a href="mailto:ocamposimon1@gmail.com" class="block font-body text-lg hover:text-white transition-colors">
+                                ocamposimon1@gmail.com
+                            </a>
+                            <a href="https://www.linkedin.com/in/simon-ocampo/" target="_blank" 
+                                class="flex items-center gap-2 font-body text-lg text-neutral-400 hover:text-white transition-colors group">
+                                <span>LinkedIn</span>
+                                <span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span>
+                            </a>
+                            <a href="https://github.com/SimonOcampo1" target="_blank" 
+                                class="flex items-center gap-2 font-body text-lg text-neutral-400 hover:text-white transition-colors group">
+                                <span>GitHub</span>
+                                <span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                    
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="border-t border-white/10 mt-24 pt-8 flex justify-between items-center">
+                <p class="font-body text-xs text-neutral-500 uppercase tracking-widest" data-i18n="footer.copyright">©
+                    2026 Simón Ocampo</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
