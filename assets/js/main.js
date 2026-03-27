@@ -916,7 +916,7 @@ if (viewAllBtn && projectsExtra) {
                         projectsExtra.style.overflow = '';
                         extraCards.forEach(el => {
                             gsap.set(el, { clearProps: 'all' });
-                            delete el.dataset.revealed;
+                            el.dataset.revealed = 'true'; // keep guard so revealMissed never re-queues them
                         });
                     }
                 }, '-=0.05');
