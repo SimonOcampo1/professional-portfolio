@@ -1,91 +1,62 @@
-# SIMÓN OCAMPO | TECHNICAL MANIFEST v2.0
+# SIMÓN OCAMPO | PORTAFOLIO PROFESIONAL
 
-> "Systems & Arguments."
+> "Software, investigación y diseño con enfoque humano."
 
-A high-performance, **fully responsive**, **bilingual** (English/Spanish) portfolio engineered for precision, utilizing a custom design system ("The Curated Void") that prioritizes typography, negative space, and zero-latency interactions.
+Portafolio web responsivo y bilingüe (EN/ES) diseñado para exhibir proyectos de desarrollo, competencias técnicas y académicas, y publicaciones de investigación en filosofía de la religión y teología analítica.
 
-## 01 / FEATURES
+## Funcionalidades
 
-### Architecture
-- **Atomic Design System**: Component-based architecture with strict tonal hierarchy.
-- **Zero-Border Radius**: Editorial aesthetic with sharp 0px corners throughout.
-- **Fully Responsive Grid**: Optimized for mobile, tablet, and desktop with fluid layouts using CSS Grid and Tailwind responsive utilities.
-- **Bilingual Support**: Complete English/Spanish translation system with persistent language preference.
+- **Navegación Fluida**: Implementación de scroll suave con Lenis y animaciones GSAP.
+- **Carruseles Interactivos**: Navegación horizontal mediante scroll/rueda del ratón dentro del área del carrusel de cada proyecto.
+- **Lightbox de Medios**: Visualización de imágenes y videos en pantalla completa con soporte responsivo (vista horizontal optimizada en móviles) y controles de reproducción.
+- **Internacionalización (i18n)**: Soporte bilingüe completo que incluye el intercambio dinámico de portadas de proyectos según el idioma seleccionado.
+- **Estética Premium**: Diseño de "lujo silencioso" con bordes redondeados pronunciados (`rounded-3xl`), micro-interacciones y tipografías modernas (Syne y Space Grotesk).
 
-### Performance
-- **Lenis Smooth Scroll**: Virtualized scrolling for a premium, heavy feel with anchor link navigation.
-- **GSAP ScrollTrigger**: High-performance, GPU-accelerated reveal animations.
-- **Mobile-First Design**: Touch-optimized with responsive typography maintaining visual impact.
-
-### Interactivity
-- **Theme Switcher**: Light/Dark mode with localStorage persistence.
-- **Language Toggle**: EN/ES switcher with real-time content updates.
-- **Mobile Navigation**: Full-screen overlay menu with smooth transitions.
-- **Smooth Scrolling**: Custom scroll physics on all anchor links.
-
-## 02 / FILE STRUCTURE
+## Estructura del Proyecto
 
 ```bash
-portfolio-aesthetic/
+professional-portfolio/
 ├── assets/
 │   ├── css/
-│   │   ├── input.css       # Tailwind source
-│   │   └── styles.css      # Compiled production CSS
+│   │   ├── input.css        # Estilos fuente y configuraciones de Tailwind
+│   │   └── styles.css       # CSS compilado y minificado para producción
 │   ├── js/
-│   │   └── main.js         # GSAP, Lenis, Theme & Language system
-│   └── images/             # Design assets
-├── index.html              # Main entry point (with i18n attributes)
-├── tailwind.config.js      # Design system configuration
-└── package.json            # Dependency manifest
+│   │   └── main.js          # Lógica de i18n, carruseles, lightbox y animaciones
+│   └── img/
+│       ├── projects/        # Activos visuales (imágenes/videos) organizados por proyecto
+│       └── ...              # Otros activos (logo, hero image)
+├── index.html               # Estructura principal y marcado semántico
+├── tailwind.config.js       # Configuración de diseño y tokens de Tailwind
+├── package.json             # Dependencias y scripts de construcción
+└── README.md                # Documentación del proyecto (Español)
 ```
 
-## 03 / TECH STACK
+## Stack Tecnológico
 
-- **Core**: HTML5, Vanilla JS (ES6+)
-- **Styling**: Tailwind CSS v3.4 (Dark mode enabled)
-- **Motion**: GSAP 3.12 (ScrollTrigger)
-- **Interaction**: Lenis Scroll (Studio Freight)
-- **Typography**: Manrope (Display), Inter (Body), Space Grotesk (Mono)
-- **i18n**: Custom JavaScript translation system
+- **Core**: HTML5, Vanilla JavaScript (ES6+).
+- **Estilos**: Tailwind CSS (Utilidades optimizadas).
+- **Animaciones**: GSAP (GreenSock Animation Platform) + ScrollTrigger.
+- **Motor de Scroll**: Lenis Smooth Scroll.
+- **Iconografía**: Google Material Symbols.
 
-## 04 / SETUP
+## Configuración y Desarrollo
 
-1. **Install Dependencies**
+1. **Instalación**:
    ```bash
    npm install
    ```
 
-2. **Develop (Watch Mode)**
+2. **Compilación de Estilos (Tailwind)**:
    ```bash
+   # Para desarrollo (modo observación)
    npm run watch:css
-   ```
-
-3. **Build for Production**
-   ```bash
+   
+   # Para producción (minificado)
    npm run build:css
    ```
 
-4. **Deploy**
-   Upload the directory to Vercel, Netlify, or GitHub Pages. No build step required on server if `assets/css/styles.css` is committed.
-
-## 05 / RESPONSIVE BREAKPOINTS
-
-- **Mobile**: < 768px (Single column, stacked layout, 16vw hero text)
-- **Tablet**: 768px - 1024px (2 columns, 14vw hero text)
-- **Desktop**: > 1024px (4 columns on stack grid, 12vw hero text)
-
-## 06 / BILINGUAL CONTENT
-
-All content is translatable via the `data-i18n` attribute system:
-- Navigation menu items
-- Hero section (title, CTA, description)
-- Project titles and descriptions
-- Research publications
-- Contact section
-- Footer
-
-Language preference is stored in `localStorage` and persists across sessions.
+3. **Ejecución**:
+   El proyecto es una aplicación estática. Puede servirse localmente con extensiones como "Live Server" en VS Code o desplegarse directamente en Vercel, Netlify o GitHub Pages.
 
 ---
-
-© 2024 SIMÓN OCAMPO. All systems nominal.
+*Diseñado y desarrollado por Simón Ocampo.*

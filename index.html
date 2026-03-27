@@ -99,6 +99,82 @@
         .hero-img-wrapper {
             clip-path: inset(0 0 0 0);
         }
+
+        @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+            html,
+            body,
+            body * {
+                cursor: none !important;
+            }
+        }
+
+        .custom-cursor-follower {
+            position: fixed;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 9999px;
+            pointer-events: none;
+            z-index: 130;
+            display: none;
+            border: 1.5px solid rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: none;
+            transform: translate(-50%, -50%) scale(1);
+            transition: transform 200ms ease-out, background-color 200ms ease-out, border-color 200ms ease-out;
+        }
+
+        .custom-cursor-follower.is-active {
+            transform: translate(-50%, -50%) scale(2);
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+            .custom-cursor-follower {
+                display: block;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            #lightbox {
+                padding: 0.75rem !important;
+            }
+
+            #lightbox-container {
+                width: min(92vw, 42rem);
+                max-width: min(92vw, 42rem);
+            }
+
+            #lightbox-content {
+                width: 100%;
+                aspect-ratio: 16 / 9;
+                max-height: 72vh;
+            }
+
+            #lightbox-prev {
+                position: absolute !important;
+                top: calc(100% + 0.65rem);
+                left: calc(50% - 3.125rem);
+                transform: none !important;
+                margin: 0;
+            }
+
+            #lightbox-next {
+                position: absolute !important;
+                top: calc(100% + 0.65rem);
+                left: calc(50% + 0.375rem);
+                transform: none !important;
+                margin: 0;
+            }
+
+            #lightbox-content img,
+            #lightbox-content video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover !important;
+            }
+        }
+
     </style>
 </head>
 
@@ -121,8 +197,21 @@
         <!-- Logo -->
         <div class="pointer-events-auto">
             <a href="#"
-                class="font-headline font-bold text-xl tracking-tighter hover:scale-110 hover:opacity-70 transition-all duration-300"
-                data-magnetic>STO</a>
+                class="inline-flex items-center justify-center text-white hover:scale-110 hover:opacity-70 transition-all duration-300"
+                data-magnetic
+                aria-label="STO">
+                <svg viewBox="0 0 112 56" width="70" height="36" role="img" aria-hidden="true"
+                    style="display:block; overflow:visible;">
+                    <defs>
+                        <mask id="sto-cutout-mask">
+                            <rect width="112" height="56" fill="black"></rect>
+                            <ellipse cx="56" cy="28" rx="46" ry="22" fill="white"></ellipse>
+                            <text x="56" y="34" text-anchor="middle" fill="black" font-family="Syne, sans-serif" font-size="18" font-weight="800" letter-spacing="0.8">STO</text>
+                        </mask>
+                    </defs>
+                    <rect width="112" height="56" fill="currentColor" mask="url(#sto-cutout-mask)"></rect>
+                </svg>
+            </a>
         </div>
 
         <!-- Desktop Navigation (Visible on md+) -->
@@ -237,11 +326,11 @@
                             class="project-header w-full py-16 flex flex-col md:flex-row justify-between items-start md:items-center text-left transition-colors duration-500 outline-none">
                             <h3
                                 class="font-headline text-4xl md:text-6xl text-white group-hover:text-[#7c9885] transition-colors duration-300">
-                                <span data-i18n="work.project1.title">Data Acquisition Adaptability</span></h3>
-                            <div class="flex items-center gap-8 mt-4 md:mt-0">
+                                <span data-i18n="work.project1.title">Software for the Visually Impaired</span></h3>
+                            <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
                                 <span
                                     class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project1.meta">Software
-                                    Dev / 2024</span>
+                                    Development / 2023-Present</span>
                                 <span
                                     class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#7c9885]">expand_more</span>
                             </div>
@@ -254,43 +343,52 @@
                                 <!-- Description Below Title -->
                                 <div class="mb-12 max-w-3xl">
                                     <p class="font-body text-lg text-neutral-300 leading-relaxed mb-6" data-i18n="work.project1.desc">
-                                        Development of an adaptability module for data acquisition software,
-                                        specifically designed to empower visually impaired users. This solution
-                                        implements high-contrast interfaces, screen-reader compatibility, and auditory
-                                        feedback loops.
+                                        Development of an adaptability module for data acquisition software, aimed at
+                                        visually impaired users.
                                     </p>
                                     <div class="flex flex-wrap gap-4">
                                         <span
                                             class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">Python</span>
                                         <span
-                                            class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">Accessibility</span>
-                                        <span
                                             class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">Tkinter</span>
+                                        <span
+                                            class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">Google TTS</span>
                                     </div>
                                 </div>
 
                                 <!-- Image Carousel (Horizontal Scroll) -->
-                                <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel"> <!-- Changed overflow-x-auto to overflow-hidden -->
+                                <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
                                     <div class="flex gap-6 min-w-max">
-                                        <!-- Placeholder 1 -->
-                                        <div
-                                            class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-lg overflow-hidden relative shrink-0">
-                                            <img src="https://picsum.photos/seed/arch1/800/600" alt="Interface"
-                                                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
+                                        <!-- Image 1 (Dynamic Cover) -->
+                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" 
+                                             onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/arsens/arsens-cover-en.png" 
+                                                 data-cover-en="./assets/img/projects/arsens/arsens-cover-en.png"
+                                                 data-cover-es="./assets/img/projects/arsens/arsens-cover-es.png" 
+                                                 alt="ArSens Interface"
+                                                class="project-cover w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
-                                        <!-- Placeholder 2 -->
-                                        <div
-                                            class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-lg overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5">
-                                            <span class="text-neutral-500 font-body uppercase tracking-widest" data-i18n="work.project1.card2">
-                                                Details
-                                                View</span>
+                                        <!-- Image 2 -->
+                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/arsens/arsens-1.png" alt="ArSens Details"
+                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
-                                        <!-- Placeholder 3 -->
-                                        <div
-                                            class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-lg overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5">
-                                            <span data-i18n="work.project1.card3"
-                                                class="text-neutral-500 font-body uppercase tracking-widest">Accessibility
-                                                Mode</span>
+                                        <!-- Image 3 -->
+                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/arsens/arsens-2.png" alt="ArSens Accessibility"
+                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <!-- Video -->
+                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                            <video src="./assets/img/projects/arsens/arsens-demo.mp4" class="w-full h-full object-cover rounded-[2rem]" muted loop playsinline preload="metadata"></video>
+                                            <span class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                                <span class="w-12 h-12 rounded-full border border-white/40 bg-black/30 text-white inline-flex items-center justify-center">
+                                                    <span class="material-symbols-outlined text-xl">play_arrow</span>
+                                                </span>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -306,11 +404,11 @@
                             class="project-header w-full py-16 flex flex-col md:flex-row justify-between items-start md:items-center text-left transition-colors duration-500 outline-none">
                             <h3
                                 class="font-headline text-4xl md:text-6xl text-white group-hover:text-[#7c9885] transition-colors duration-300">
-                                <span data-i18n="work.project2.title">Kinesiology Management</span></h3>
-                            <div class="flex items-center gap-8 mt-4 md:mt-0">
+                                <span data-i18n="work.project2.title">Web App for Kinesiology Center</span></h3>
+                            <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
                                 <span
                                     class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project2.meta">Web
-                                    App / 2023</span>
+                                    App / 2024-2025</span>
                                 <span
                                     class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#7c9885]">expand_more</span>
                             </div>
@@ -321,9 +419,8 @@
 
                                 <div class="mb-12 max-w-3xl">
                                     <p class="font-body text-lg text-neutral-300 leading-relaxed mb-6" data-i18n="work.project2.desc">
-                                        A comprehensive web application for a kinesiology center, enabling secure
-                                        management of patient medical records, appointment scheduling, and treatment
-                                        history. Built with a robust Django backend and a reactive React frontend.
+                                        Development of a web app using Django + React for a kinesiology center,
+                                        allowing management of medical records.
                                     </p>
                                     <div class="flex flex-wrap gap-4">
                                         <span
@@ -331,27 +428,105 @@
                                         <span
                                             class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">React</span>
                                         <span
-                                            class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">PostgreSQL</span>
+                                            class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">Tailwind CSS</span>
                                     </div>
                                 </div>
 
                             <!-- Image Carousel -->
                                 <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
                                     <div class="flex gap-6 min-w-max">
-                                        <div
-                                            class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-lg overflow-hidden relative shrink-0">
-                                            <img src="https://picsum.photos/seed/kine1/800/600" alt="Dashboard"
-                                                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
+                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/kicenter/kicenter-cover-en.png" 
+                                                 data-cover-en="./assets/img/projects/kicenter/kicenter-cover-en.png"
+                                                 data-cover-es="./assets/img/projects/kicenter/kicenter-cover-es.png" 
+                                                 alt="Dashboard"
+                                                class="project-cover w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
-                                        <div
-                                            class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-lg overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5">
-                                             <img src="https://picsum.photos/seed/kine2/800/600" alt="Patient Records"
-                                                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
+                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                             <img src="./assets/img/projects/kicenter/home-main.png" alt="Patient Records"
+                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
-                                        <div
-                                            class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-lg overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5">
-                                             <img src="https://picsum.photos/seed/kine3/800/600" alt="Scheduler UI"
-                                                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity">
+                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                             <img src="./assets/img/projects/kicenter/kine-consultas.png" alt="Scheduler UI"
+                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                            <video src="./assets/img/projects/kicenter/kicenter-demo.mp4" class="w-full h-full object-cover rounded-[2rem]" muted loop playsinline preload="metadata"></video>
+                                            <span class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                                <span class="w-12 h-12 rounded-full border border-white/40 bg-black/30 text-white inline-flex items-center justify-center">
+                                                    <span class="material-symbols-outlined text-xl">play_arrow</span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3: Atlas Automotriz -->
+                    <div
+                        class="project-accordion group border-b border-white/10 overflow-hidden transition-colors duration-500">
+                        <button
+                            class="project-header w-full py-16 flex flex-col md:flex-row justify-between items-start md:items-center text-left transition-colors duration-500 outline-none">
+                            <h3
+                                class="font-headline text-4xl md:text-6xl text-white group-hover:text-[#7c9885] transition-colors duration-300">
+                                <span data-i18n="work.project3.title">Atlas Automotriz Platform</span></h3>
+                            <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
+                                <span
+                                    class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project3.meta">Product Design / 2024-2025</span>
+                                <span
+                                    class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#7c9885]">expand_more</span>
+                            </div>
+                        </button>
+
+                        <div class="project-content h-0 overflow-hidden">
+                            <div class="pb-12 pt-0 px-0 md:px-8">
+
+                                <div class="mb-12 max-w-3xl">
+                                    <p class="font-body text-lg text-neutral-300 leading-relaxed mb-6" data-i18n="work.project3.desc">
+                                        Automotive marketplace platform concept with catalog, premium vehicle showcase, and sales workflow screens.
+                                    </p>
+                                    <div class="flex flex-wrap gap-4">
+                                        <span
+                                            class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">React</span>
+                                        <span
+                                            class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">Tailwind CSS</span>
+                                        <span
+                                            class="px-4 py-2 border border-[#7c9885]/30 rounded-full text-xs text-[#7c9885] uppercase tracking-widest">UI Prototyping</span>
+                                    </div>
+                                </div>
+
+                                <!-- Image Carousel -->
+                                <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
+                                    <div class="flex gap-6 min-w-max">
+                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/atlas-automotriz/atlas-banner-en.png" 
+                                                 data-cover-en="./assets/img/projects/atlas-automotriz/atlas-banner-en.png"
+                                                 data-cover-es="./assets/img/projects/atlas-automotriz/atlas-banner-es.png" 
+                                                 alt="Atlas Platform"
+                                                class="project-cover w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                             <img src="./assets/img/projects/atlas-automotriz/atlas-1.png" alt="Vehicle Catalog"
+                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                             <img src="./assets/img/projects/atlas-automotriz/atlas-2.png" alt="Premium Showcase"
+                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                             <img src="./assets/img/projects/atlas-automotriz/atlas-3.png" alt="Sales Workflow"
+                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
                                     </div>
                                 </div>
@@ -366,7 +541,7 @@
                     <button type="button"
                         class="relative px-8 py-4 bg-transparent border border-[#7c9885] text-[#7c9885] font-body font-medium uppercase tracking-widest hover:text-white hover:border-[#4a5f50] transition-all duration-300 overflow-hidden group rounded-full"
                         >
-                        <span class="relative z-20 group-hover:text-white transition-colors duration-300" data-i18n="work.archive">View Archive</span>
+                        <span class="relative z-20 group-hover:text-white transition-colors duration-300" data-i18n="work.archive">View All</span>
                         <span class="absolute inset-0 bg-[#4a5f50] z-10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
                     </button>
                 </div>
@@ -427,7 +602,7 @@
                             <h3
                                 class="font-headline text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-[#7c9885] transition-colors">
                                 <span data-i18n="academic.pub2.title">Estrategias para la Fase II de los Argumentos Cosmológicos</span></h3>
-                            <p class="font-body text-neutral-400 italic" data-i18n="academic.pub2.source">Independent Research Repository</p>
+                            <p class="font-body text-neutral-400 italic" data-i18n="academic.pub2.source">Ocampo, S.T. (2023). Estrategias para la Fase II de los Argumentos Cosmológicos.</p>
                         </div>
                     </a>
 
@@ -443,7 +618,7 @@
                             <h3
                                 class="font-headline text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-[#7c9885] transition-colors">
                                 <span data-i18n="academic.pub3.title">La Confiabilidad Histórica de los Evangelios</span></h3>
-                            <p class="font-body text-neutral-400 italic" data-i18n="academic.pub3.source">Historical Analysis</p>
+                            <p class="font-body text-neutral-400 italic" data-i18n="academic.pub3.source">Ocampo, S.T. (2022). La Confiabilidad Histórica de los Evangelios.</p>
                         </div>
                     </a>
 
@@ -472,7 +647,7 @@
                             </h3>
                             <div class="h-px w-full bg-white/10"></div>
                             <p class="font-body text-lg leading-relaxed">
-                                Python, Django, React, JavaScript, Tailwind CSS, HTML5, CSS3, Tkinter
+                                Full Stack Development, React, Django, Python, Adobe Photoshop, Tkinter, HTML5, CSS3, Tailwind CSS, JavaScript
                             </p>
                         </div>
                         <!-- Skill Group 2: Design -->
@@ -480,7 +655,7 @@
                             <h3 class="font-headline text-xl text-neutral-400" data-i18n="stack.design">Design</h3>
                             <div class="h-px w-full bg-white/10"></div>
                             <p class="font-body text-lg leading-relaxed">
-                                Adobe Photoshop, UI/UX Prototyping, Responsive Design
+                                Adobe Photoshop
                             </p>
                         </div>
                         <!-- Skill Group 3: Research -->
@@ -489,7 +664,7 @@
                                 Philosophy</h3>
                             <div class="h-px w-full bg-white/10"></div>
                             <p class="font-body text-lg leading-relaxed">
-                                Analytic Theology, Metaphysics, History, Philosophy of Religion
+                                Philosophy of Religion, Analytic Theology, Metaphysics, History
                             </p>
                         </div>
                         <!-- Skill Group 4: Languages -->
@@ -597,6 +772,25 @@
         </div>
     </footer>
 
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-[100] hidden bg-black/65 backdrop-blur-sm flex items-center justify-center p-2 md:p-12">
+        <div id="lightbox-container" class="relative max-w-5xl max-h-full bg-transparent rounded-[1.5rem] shadow-[0_0_100px_rgba(0,0,0,0.8)] overflow-visible">
+            <!-- Close Button (Positioned at the top right of the modal box) -->
+            <button id="close-lightbox" class="absolute top-4 right-4 w-12 h-12 inline-flex items-center justify-center bg-white text-black rounded-full shadow-2xl hover:scale-110 transition-transform z-[120]" onclick="closeLightbox()">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+            <button id="lightbox-prev" data-lightbox-nav class="absolute top-1/2 -translate-y-1/2 w-11 h-11 inline-flex items-center justify-center rounded-full border border-white/30 text-white bg-black/20 hover:border-[#7c9885] hover:text-[#7c9885] transition-colors z-[120]" aria-label="Previous media" onclick="navigateLightbox(-1)">
+                <span class="material-symbols-outlined text-xl">arrow_back</span>
+            </button>
+            <button id="lightbox-next" data-lightbox-nav class="absolute top-1/2 -translate-y-1/2 w-11 h-11 inline-flex items-center justify-center rounded-full border border-white/30 text-white bg-black/20 hover:border-[#7c9885] hover:text-[#7c9885] transition-colors z-[120]" aria-label="Next media" onclick="navigateLightbox(1)">
+                <span class="material-symbols-outlined text-xl">arrow_forward</span>
+            </button>
+            <div id="lightbox-content" class="w-full h-full flex items-center justify-center rounded-[1.5rem] overflow-hidden">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -605,3 +799,4 @@
 </body>
 
 </html>
+
