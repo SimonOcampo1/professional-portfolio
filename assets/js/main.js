@@ -318,6 +318,19 @@ function toggleMenu() {
 
 if(menuToggle) menuToggle.addEventListener('click', toggleMenu);
 
+// --- 5. SMOOTH NAV SCROLL ---
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        if (isMenuOpen) toggleMenu();
+        lenis.scrollTo(target, { duration: 1.4, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    });
+});
+
 // --- 6. HERO PARALLAX ---
 if(document.querySelector(".hero-img-wrapper")) {
     gsap.to(".hero-img-wrapper img", {
@@ -340,7 +353,7 @@ if(document.querySelector("#hero h1")) {
 // --- 7. LANGUAGE TOGGLE & TRANSLATIONS ---
 const translations = {
     en: {
-        'nav.menu': 'MENU', 'nav.work': 'WORK', 'nav.about': 'ABOUT', 'nav.contact': 'CONTACT', 'nav.close': 'CLOSE',
+        'nav.menu': 'MENU', 'nav.work': 'WORK', 'nav.research': 'RESEARCH', 'nav.about': 'ABOUT', 'nav.contact': 'CONTACT', 'nav.close': 'CLOSE',
         'hero.title1': 'SIMÓN', 'hero.title2': 'OCAMPO', 'hero.role1': 'Systems Analyst', 'hero.role2': 'Systems Engineering Student',
         'hero.role3': 'Full Stack Developer', 'hero.role': 'Specializing in scalable web architectures and accessible software solutions. Independent Researcher in Philosophy & Theology.',
         'hero.available': 'Available for work', 'work.title': 'Selected Works', 'work.archive': 'View All', 'work.collapse': 'View Less',
@@ -378,7 +391,7 @@ const translations = {
         'footer.copyright': '© 2026 Simón Ocampo'
     },
     es: {
-        'nav.menu': 'MENÚ', 'nav.work': 'PROYECTOS', 'nav.about': 'PERFIL', 'nav.contact': 'CONTACTO', 'nav.close': 'CERRAR',
+        'nav.menu': 'MENÚ', 'nav.work': 'PROYECTOS', 'nav.research': 'ACADEMIA', 'nav.about': 'PERFIL', 'nav.contact': 'CONTACTO', 'nav.close': 'CERRAR',
         'hero.title1': 'SIMÓN', 'hero.title2': 'OCAMPO', 'hero.role1': 'Analista de Sistemas', 'hero.role2': 'Estudiante de Ingeniería de Sistemas',
         'hero.role3': 'Desarrollador Full Stack', 'hero.role': 'Especializado en arquitecturas web escalables y soluciones de software accesible. Investigador independiente en Filosofía y Teología.',
         'hero.available': 'Disponible para trabajar', 'work.title': 'Trabajos Seleccionados', 'work.archive': 'Ver Todos', 'work.collapse': 'Ver Menos',
