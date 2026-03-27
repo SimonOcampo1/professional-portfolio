@@ -1,0 +1,9 @@
+{
+    "buildCommand": "npm run build:css",
+    "outputDirectory": ".",
+    "functions": {
+        "api/send-email.js": {
+            "runtime": "nodejs18.x"
+        }
+    }
+}

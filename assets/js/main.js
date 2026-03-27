@@ -351,8 +351,29 @@ const translations = {
         'work.project2.desc': 'Development of a web app using Django + React for a kinesiology center, allowing management of medical records.',
         'work.project3.title': 'Atlas Automotriz Platform', 'work.project3.meta': 'Product Design / 2024-2025',
         'work.project3.desc': 'Automotive marketplace platform concept with catalog, premium vehicle showcase, and sales workflow screens.',
+        'hero.downloadCV': 'Download CV',
+        'work.viewLive': 'View Live',
+        'work.viewOnGithub': 'View on GitHub',
+        'work.project1.title': 'Software for the Visually Impaired', 'work.project1.meta': 'Software Development / 2023-Present',
+        'work.project1.desc': 'Development of an adaptability module for data acquisition software, aimed at visually impaired users.',
+        'work.project2.title': 'Web App for Kinesiology Center', 'work.project2.meta': 'Web App / 2024-2025',
+        'work.project2.desc': 'Development of a web app using Django + React for a kinesiology center, allowing management of medical records.',
+        'work.project3.title': 'Atlas Automotriz Platform', 'work.project3.meta': 'Product Design / 2024-2025',
+        'work.project3.desc': 'Automotive marketplace platform concept with catalog, premium vehicle showcase, and sales workflow screens.',
+        'work.project4.title': 'Architecture Studio Landing', 'work.project4.meta': 'Web Design / 2024',
+        'work.project4.desc': 'A monumental, brutalist landing page for an architecture studio featuring high-contrast typography, complex GSAP scroll animations, and ultra-smooth Lenis scrolling.',
+        'work.project5.title': 'STORM — Atmospheric Monitor', 'work.project5.meta': 'Web Experience / 2024',
+        'work.project5.desc': 'A cinematic web experience for monitoring the Catatumbo Lightning phenomenon. Cyber-noir aesthetic with React, dynamic video backgrounds, real-time telemetry panels, and GSAP choreography.',
+        'work.project6.title': 'SCENT — Botanical Lab Landing', 'work.project6.meta': 'Web Design / 2024',
+        'work.project6.desc': 'An immersive landing for an olfactory memory laboratory preserving extinct species\' fragrances. Premium botanical aesthetic with parallax backgrounds, GSAP cinematic entries, and dynamic ScrollSpy navigation.',
         'about.label': '/ Arsenal', 'about.title': 'Technical and academic competencies applied to software and research.',
         'stack.frontend': 'Technical Skills', 'stack.backend': 'Languages', 'stack.analysis': 'Academic Skills', 'stack.design': 'Tools',
+        'contact.form.name': 'Name', 'contact.form.email': 'Email', 'contact.form.message': 'Message',
+        'contact.form.namePlaceholder': 'John Doe *', 'contact.form.emailPlaceholder': 'john@doe.com *', 'contact.form.messagePlaceholder': 'Tell me about your project...',
+        'contact.error.name': 'Please enter your name', 'contact.error.email': 'Please enter a valid email', 'contact.error.message': 'Please write your message',
+        'contact.success': '— Message sent successfully.', 'contact.error.send': '— Failed to send. Please try again.',
+        'contact.sending': 'Sending...',
+        'contact.details': 'Contact Details',
         'contact.title': 'Let\'s work<br>together', 'contact.cta': 'Get in touch', 'contact.submit': 'Send Message',
         'footer.copyright': '© 2026 Simón Ocampo'
     },
@@ -367,8 +388,29 @@ const translations = {
         'work.project2.desc': 'Desarrollo de web app utilizando Django + React para un centro de kinesiología, permitiendo administrar historias clínicas.',
         'work.project3.title': 'Plataforma Atlas Automotriz', 'work.project3.meta': 'Diseño de Producto / 2024-2025',
         'work.project3.desc': 'Concepto de plataforma automotriz con catálogo, exhibición de vehículos premium y pantallas de flujo comercial.',
+        'hero.downloadCV': 'Descargar CV',
+        'work.viewLive': 'Ver en Vivo',
+        'work.viewOnGithub': 'Ver en GitHub',
+        'work.project1.title': 'Software para No-videntes', 'work.project1.meta': 'Desarrollo de Software / 2023-Presente',
+        'work.project1.desc': 'Desarrollo de un módulo de adaptabilidad para un software adquisidor de datos, orientado a usuarios no-videntes.',
+        'work.project2.title': 'Web App para Centro de Kinesiología', 'work.project2.meta': 'Aplicación Web / 2024-2025',
+        'work.project2.desc': 'Desarrollo de web app utilizando Django + React para un centro de kinesiología, permitiendo administrar historias clínicas.',
+        'work.project3.title': 'Plataforma Atlas Automotriz', 'work.project3.meta': 'Diseño de Producto / 2024-2025',
+        'work.project3.desc': 'Concepto de plataforma automotriz con catálogo, exhibición de vehículos premium y pantallas de flujo comercial.',
+        'work.project4.title': 'Landing de Estudio de Arquitectura', 'work.project4.meta': 'Diseño Web / 2024',
+        'work.project4.desc': 'Una landing brutalista monumental para un estudio de arquitectura con tipografía de alto contraste, animaciones GSAP complejas y scroll suave.',
+        'work.project5.title': 'STORM — Monitor Atmosférico', 'work.project5.meta': 'Experiencia Web / 2024',
+        'work.project5.desc': 'Una experiencia web cinematográfica dedicada al monitoreo del Relámpago del Catatumbo. Estética cyber-noir con React, fondos de video dinámicos y paneles de telemetría.',
+        'work.project6.title': 'SCENT — Landing Laboratorio Botánico', 'work.project6.meta': 'Diseño Web / 2024',
+        'work.project6.desc': 'Una landing inmersiva para un laboratorio de memoria olfativa que preserva fragancias de especies extintas. Estética botánica premium con fondos parallax y entradas cinematográficas GSAP.',
         'about.label': '/ Arsenal', 'about.title': 'Competencias técnicas y académicas aplicadas al desarrollo de software y la investigación.',
         'stack.frontend': 'Habilidades Técnicas', 'stack.backend': 'Idiomas', 'stack.analysis': 'Habilidades Académicas', 'stack.design': 'Herramientas',
+        'contact.form.name': 'Nombre', 'contact.form.email': 'Email', 'contact.form.message': 'Mensaje',
+        'contact.form.namePlaceholder': 'Juan García *', 'contact.form.emailPlaceholder': 'juan@ejemplo.com *', 'contact.form.messagePlaceholder': 'Cuéntame sobre tu proyecto...',
+        'contact.error.name': 'Por favor ingresa tu nombre', 'contact.error.email': 'Por favor ingresa un email válido', 'contact.error.message': 'Por favor escribe tu mensaje',
+        'contact.success': '— Mensaje enviado con éxito.', 'contact.error.send': '— Error al enviar. Por favor intenta de nuevo.',
+        'contact.sending': 'Enviando...',
+        'contact.details': 'Detalles de Contacto',
         'contact.title': 'Trabajemos<br>juntos', 'contact.cta': 'Hablemos', 'contact.submit': 'Enviar Mensaje',
         'footer.copyright': '© 2026 Simón Ocampo'
     }
@@ -398,12 +440,28 @@ function applyTranslations() {
 }
 
 const langToggle = document.getElementById('lang-toggle-desktop');
-if (langToggle) {
-    langToggle.addEventListener('click', () => {
-        currentLang = currentLang === 'en' ? 'es' : 'en';
-        langToggle.textContent = currentLang === 'en' ? 'EN' : 'ES';
-        applyTranslations();
-    });
+const langToggleMobile = document.getElementById('lang-toggle-mobile');
+
+function syncLangButtons() {
+    const label = currentLang === 'en' ? 'EN' : 'ES';
+    if (langToggle) langToggle.textContent = label;
+    if (langToggleMobile) langToggleMobile.textContent = label;
+}
+
+function handleLangToggle() {
+    currentLang = currentLang === 'en' ? 'es' : 'en';
+    syncLangButtons();
+    applyTranslations();
+    updateCVLinks();
+}
+
+if (langToggle) langToggle.addEventListener('click', handleLangToggle);
+if (langToggleMobile) langToggleMobile.addEventListener('click', handleLangToggle);
+
+function updateCVLinks() {
+    const cvFile = currentLang === 'es' ? './assets/cv/cv-es.pdf' : './assets/cv/cv-en.pdf';
+    const btn = document.getElementById('cv-download-btn');
+    if (btn) btn.setAttribute('href', cvFile);
 }
 
 // --- 12. SCROLL TO TOP ---
@@ -470,23 +528,22 @@ function initScrollRevealAnimations() {
         });
     });
     
-    // Animate project cards with stagger
+    // Animate project cards — use batch to group simultaneous entries and prevent competing animations
     const projectCards = gsap.utils.toArray('.project-accordion');
-    projectCards.forEach((card, index) => {
-        gsap.to(card, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.7,
-            delay: index * 0.1,
-            ease: "power3.out",
-            onStart: () => { card.dataset.revealed = 'true'; },
-            scrollTrigger: {
-                trigger: card,
-                start: "top bottom",
-                once: true,
-                fastScrollEnd: true
-            }
-        });
+    ScrollTrigger.batch(projectCards, {
+        onEnter: (batch) => {
+            batch.forEach(el => { el.dataset.revealed = 'true'; });
+            gsap.to(batch, {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.65,
+                stagger: 0.07,
+                ease: "power3.out",
+                overwrite: true
+            });
+        },
+        start: "top 95%",
+        once: true
     });
     
     // Animate grid items
@@ -721,4 +778,127 @@ window.closeLightbox = closeLightbox;
 window.navigateLightbox = navigateLightbox;
 
 applyTranslations();
+
+// --- 15. CONTACT FORM — CUSTOM VALIDATION & RESEND SUBMIT ---
+const contactForm = document.getElementById('contact-form');
+
+if (contactForm) {
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+    const submitBtn = document.getElementById('contact-submit');
+    const submitLabel = document.getElementById('contact-submit-label');
+    const successMsg = document.getElementById('contact-success');
+    const errorMsg = document.getElementById('contact-error-msg');
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function showFieldError(fieldId, show) {
+        const errorEl = contactForm.querySelector(`[data-error-for="${fieldId}"]`);
+        const wrapper = errorEl ? errorEl.closest('.border-b') : null;
+        if (errorEl) errorEl.classList.toggle('hidden', !show);
+        if (wrapper) wrapper.classList.toggle('border-[#7c9885]/30', show);
+    }
+
+    function validateField(input) {
+        if (input.id === 'email') {
+            return input.value.trim() !== '' && emailRegex.test(input.value.trim());
+        }
+        return input.value.trim() !== '';
+    }
+
+    [nameInput, emailInput, messageInput].forEach(input => {
+        if (!input) return;
+        input.addEventListener('input', () => {
+            if (validateField(input)) showFieldError(input.id, false);
+        });
+        input.addEventListener('blur', () => {
+            if (!validateField(input)) showFieldError(input.id, true);
+        });
+    });
+
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        let isValid = true;
+        [nameInput, emailInput, messageInput].forEach(input => {
+            if (!input) return;
+            if (!validateField(input)) { showFieldError(input.id, true); isValid = false; }
+        });
+        if (!isValid) return;
+
+        successMsg.classList.add('hidden');
+        errorMsg.classList.add('hidden');
+        submitBtn.disabled = true;
+        if (submitLabel) submitLabel.setAttribute('data-i18n', 'contact.sending');
+        applyTranslations();
+
+        try {
+            const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: nameInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    message: messageInput.value.trim()
+                })
+            });
+
+            if (response.ok) {
+                contactForm.reset();
+                successMsg.classList.remove('hidden');
+                gsap.from(successMsg, { y: 10, opacity: 0, duration: 0.4, ease: 'power2.out' });
+            } else {
+                errorMsg.classList.remove('hidden');
+                gsap.from(errorMsg, { y: 10, opacity: 0, duration: 0.4, ease: 'power2.out' });
+            }
+        } catch (_) {
+            errorMsg.classList.remove('hidden');
+            gsap.from(errorMsg, { y: 10, opacity: 0, duration: 0.4, ease: 'power2.out' });
+        } finally {
+            submitBtn.disabled = false;
+            if (submitLabel) submitLabel.setAttribute('data-i18n', 'contact.submit');
+            applyTranslations();
+        }
+    });
+}
+
+// --- 16. VIEW ALL PROJECTS ---
+const viewAllBtn = document.getElementById('view-all-btn');
+const projectsExtra = document.getElementById('projects-extra');
+
+if (viewAllBtn && projectsExtra) {
+    viewAllBtn.addEventListener('click', () => {
+        const extraCards = Array.from(projectsExtra.querySelectorAll('.project-accordion'));
+
+        // Make container visible
+        projectsExtra.style.display = 'block';
+
+        // Animate each card in with stagger swipe-up
+        gsap.fromTo(extraCards,
+            { autoAlpha: 0, y: 40 },
+            {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.65,
+                stagger: 0.08,
+                ease: 'power3.out',
+                onComplete: () => {
+                    extraCards.forEach(el => { el.dataset.revealed = 'true'; });
+                    ScrollTrigger.refresh();
+                }
+            }
+        );
+
+        // Hide the button after revealing
+        gsap.to(viewAllBtn.parentElement, {
+            autoAlpha: 0,
+            y: -10,
+            duration: 0.3,
+            ease: 'power2.in',
+            onComplete: () => { viewAllBtn.parentElement.style.display = 'none'; }
+        });
+    });
+}
+
 console.log("Portfolio Loaded");
