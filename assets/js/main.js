@@ -345,6 +345,7 @@ const translations = {
         'hero.title1': 'SIMÓN', 'hero.title2': 'OCAMPO', 'hero.role1': 'Systems Analyst', 'hero.role2': 'Systems Engineering Student',
         'hero.role3': 'Full Stack Developer', 'hero.role': 'Specializing in scalable web architectures and accessible software solutions. Independent Researcher in Philosophy & Theology.',
         'hero.available': 'Available for work', 'work.title': 'Selected Works', 'work.archive': 'View All', 'work.collapse': 'View Less',
+        'mobile.about': 'About Me',
         'work.project1.title': 'Software for the Visually Impaired', 'work.project1.meta': 'Software Development / 2023-Present',
         'work.project1.desc': 'Development of an adaptability module for data acquisition software, aimed at visually impaired users.',
         'work.project2.title': 'Web App for Kinesiology Center', 'work.project2.meta': 'Web App / 2024-2025',
@@ -382,6 +383,7 @@ const translations = {
         'hero.title1': 'SIMÓN', 'hero.title2': 'OCAMPO', 'hero.role1': 'Analista de Sistemas', 'hero.role2': 'Estudiante de Ingeniería de Sistemas',
         'hero.role3': 'Desarrollador Full Stack', 'hero.role': 'Especializado en arquitecturas web escalables y soluciones de software accesible. Investigador independiente en Filosofía y Teología.',
         'hero.available': 'Disponible para trabajar', 'work.title': 'Trabajos Seleccionados', 'work.archive': 'Ver Todos', 'work.collapse': 'Ver Menos',
+        'mobile.about': 'Sobre Mí',
         'work.project1.title': 'Software para No-videntes', 'work.project1.meta': 'Desarrollo de Software / 2023-Presente',
         'work.project1.desc': 'Desarrollo de un módulo de adaptabilidad para un software adquisidor de datos, orientado a usuarios no-videntes.',
         'work.project2.title': 'Web App para Centro de Kinesiología', 'work.project2.meta': 'Aplicación Web / 2024-2025',
@@ -897,18 +899,25 @@ if (viewAllBtn && projectsExtra) {
                 btnLabel.setAttribute('data-i18n', 'work.archive');
                 btnLabel.textContent = translations[currentLang]['work.archive'] || 'View All';
             }
-            gsap.to(extraCards, {
-                autoAlpha: 0, y: -20, duration: 0.4,
-                stagger: { each: 0.05, from: 'end' },
-                ease: 'power2.in',
-                onComplete: () => {
-                    projectsExtra.style.display = 'none';
-                    extraCards.forEach(el => {
-                        gsap.set(el, { clearProps: 'all' });
-                        delete el.dataset.revealed;
-                    });
-                }
-            });
+            projectsExtra.style.overflow = 'hidden';
+            gsap.timeline()
+                .to(extraCards, {
+                    autoAlpha: 0, y: -15, duration: 0.35,
+                    stagger: { each: 0.04, from: 'end' },
+                    ease: 'power2.in'
+                })
+                .to(projectsExtra, {
+                    height: 0, duration: 0.5, ease: 'power3.inOut',
+                    onComplete: () => {
+                        projectsExtra.style.display = 'none';
+                        projectsExtra.style.height = '';
+                        projectsExtra.style.overflow = '';
+                        extraCards.forEach(el => {
+                            gsap.set(el, { clearProps: 'all' });
+                            delete el.dataset.revealed;
+                        });
+                    }
+                }, '-=0.05');
         }
     });
 }
