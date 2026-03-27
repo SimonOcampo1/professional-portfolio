@@ -344,7 +344,7 @@ const translations = {
         'nav.menu': 'MENU', 'nav.work': 'WORK', 'nav.about': 'ABOUT', 'nav.contact': 'CONTACT', 'nav.close': 'CLOSE',
         'hero.title1': 'SIMÓN', 'hero.title2': 'OCAMPO', 'hero.role1': 'Systems Analyst', 'hero.role2': 'Systems Engineering Student',
         'hero.role3': 'Full Stack Developer', 'hero.role': 'Specializing in scalable web architectures and accessible software solutions. Independent Researcher in Philosophy & Theology.',
-        'hero.available': 'Available for work', 'work.title': 'Selected Works', 'work.archive': 'View All',
+        'hero.available': 'Available for work', 'work.title': 'Selected Works', 'work.archive': 'View All', 'work.collapse': 'View Less',
         'work.project1.title': 'Software for the Visually Impaired', 'work.project1.meta': 'Software Development / 2023-Present',
         'work.project1.desc': 'Development of an adaptability module for data acquisition software, aimed at visually impaired users.',
         'work.project2.title': 'Web App for Kinesiology Center', 'work.project2.meta': 'Web App / 2024-2025',
@@ -366,7 +366,7 @@ const translations = {
         'work.project5.desc': 'A cinematic web experience for monitoring the Catatumbo Lightning phenomenon. Cyber-noir aesthetic with React, dynamic video backgrounds, real-time telemetry panels, and GSAP choreography.',
         'work.project6.title': 'SCENT — Botanical Lab Landing', 'work.project6.meta': 'Web Design / 2024',
         'work.project6.desc': 'An immersive landing for an olfactory memory laboratory preserving extinct species\' fragrances. Premium botanical aesthetic with parallax backgrounds, GSAP cinematic entries, and dynamic ScrollSpy navigation.',
-        'about.label': '/ Arsenal', 'about.title': 'Technical and academic competencies applied to software and research.',
+        'about.label': 'Arsenal', 'about.title': 'Technical and academic competencies applied to software and research.',
         'stack.frontend': 'Technical Skills', 'stack.backend': 'Languages', 'stack.analysis': 'Academic Skills', 'stack.design': 'Tools',
         'contact.form.name': 'Name', 'contact.form.email': 'Email', 'contact.form.message': 'Message',
         'contact.form.namePlaceholder': 'John Doe *', 'contact.form.emailPlaceholder': 'john@doe.com *', 'contact.form.messagePlaceholder': 'Tell me about your project...',
@@ -381,7 +381,7 @@ const translations = {
         'nav.menu': 'MENÚ', 'nav.work': 'PROYECTOS', 'nav.about': 'PERFIL', 'nav.contact': 'CONTACTO', 'nav.close': 'CERRAR',
         'hero.title1': 'SIMÓN', 'hero.title2': 'OCAMPO', 'hero.role1': 'Analista de Sistemas', 'hero.role2': 'Estudiante de Ingeniería de Sistemas',
         'hero.role3': 'Desarrollador Full Stack', 'hero.role': 'Especializado en arquitecturas web escalables y soluciones de software accesible. Investigador independiente en Filosofía y Teología.',
-        'hero.available': 'Disponible para trabajar', 'work.title': 'Trabajos Seleccionados', 'work.archive': 'Ver Todos',
+        'hero.available': 'Disponible para trabajar', 'work.title': 'Trabajos Seleccionados', 'work.archive': 'Ver Todos', 'work.collapse': 'Ver Menos',
         'work.project1.title': 'Software para No-videntes', 'work.project1.meta': 'Desarrollo de Software / 2023-Presente',
         'work.project1.desc': 'Desarrollo de un módulo de adaptabilidad para un software adquisidor de datos, orientado a usuarios no-videntes.',
         'work.project2.title': 'Web App para Centro de Kinesiología', 'work.project2.meta': 'Aplicación Web / 2024-2025',
@@ -403,7 +403,7 @@ const translations = {
         'work.project5.desc': 'Una experiencia web cinematográfica dedicada al monitoreo del Relámpago del Catatumbo. Estética cyber-noir con React, fondos de video dinámicos y paneles de telemetría.',
         'work.project6.title': 'SCENT — Landing Laboratorio Botánico', 'work.project6.meta': 'Diseño Web / 2024',
         'work.project6.desc': 'Una landing inmersiva para un laboratorio de memoria olfativa que preserva fragancias de especies extintas. Estética botánica premium con fondos parallax y entradas cinematográficas GSAP.',
-        'about.label': '/ Arsenal', 'about.title': 'Competencias técnicas y académicas aplicadas al desarrollo de software y la investigación.',
+        'about.label': 'Arsenal', 'about.title': 'Competencias técnicas y académicas aplicadas al desarrollo de software y la investigación.',
         'stack.frontend': 'Habilidades Técnicas', 'stack.backend': 'Idiomas', 'stack.analysis': 'Habilidades Académicas', 'stack.design': 'Herramientas',
         'contact.form.name': 'Nombre', 'contact.form.email': 'Email', 'contact.form.message': 'Mensaje',
         'contact.form.namePlaceholder': 'Juan García *', 'contact.form.emailPlaceholder': 'juan@ejemplo.com *', 'contact.form.messagePlaceholder': 'Cuéntame sobre tu proyecto...',
@@ -866,38 +866,50 @@ if (contactForm) {
 // --- 16. VIEW ALL PROJECTS ---
 const viewAllBtn = document.getElementById('view-all-btn');
 const projectsExtra = document.getElementById('projects-extra');
+let projectsExpanded = false;
 
 if (viewAllBtn && projectsExtra) {
+    const btnLabel = viewAllBtn.querySelector('[data-i18n]');
+
     viewAllBtn.addEventListener('click', () => {
         const extraCards = Array.from(projectsExtra.querySelectorAll('.project-accordion'));
 
-        // Make container visible
-        projectsExtra.style.display = 'block';
-
-        // Animate each card in with stagger swipe-up
-        gsap.fromTo(extraCards,
-            { autoAlpha: 0, y: 40 },
-            {
-                autoAlpha: 1,
-                y: 0,
-                duration: 0.65,
-                stagger: 0.08,
-                ease: 'power3.out',
-                onComplete: () => {
-                    extraCards.forEach(el => { el.dataset.revealed = 'true'; });
-                    ScrollTrigger.refresh();
-                }
+        if (!projectsExpanded) {
+            projectsExpanded = true;
+            if (btnLabel) {
+                btnLabel.setAttribute('data-i18n', 'work.collapse');
+                btnLabel.textContent = translations[currentLang]['work.collapse'] || 'View Less';
             }
-        );
-
-        // Hide the button after revealing
-        gsap.to(viewAllBtn.parentElement, {
-            autoAlpha: 0,
-            y: -10,
-            duration: 0.3,
-            ease: 'power2.in',
-            onComplete: () => { viewAllBtn.parentElement.style.display = 'none'; }
-        });
+            projectsExtra.style.display = 'block';
+            gsap.fromTo(extraCards,
+                { autoAlpha: 0, y: 40 },
+                {
+                    autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.08, ease: 'power3.out',
+                    onComplete: () => {
+                        extraCards.forEach(el => { el.dataset.revealed = 'true'; });
+                        ScrollTrigger.refresh();
+                    }
+                }
+            );
+        } else {
+            projectsExpanded = false;
+            if (btnLabel) {
+                btnLabel.setAttribute('data-i18n', 'work.archive');
+                btnLabel.textContent = translations[currentLang]['work.archive'] || 'View All';
+            }
+            gsap.to(extraCards, {
+                autoAlpha: 0, y: -20, duration: 0.4,
+                stagger: { each: 0.05, from: 'end' },
+                ease: 'power2.in',
+                onComplete: () => {
+                    projectsExtra.style.display = 'none';
+                    extraCards.forEach(el => {
+                        gsap.set(el, { clearProps: 'all' });
+                        delete el.dataset.revealed;
+                    });
+                }
+            });
+        }
     });
 }
 
