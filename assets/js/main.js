@@ -14,7 +14,6 @@ const lenis = new Lenis({
 });
 lenis.on('scroll', () => {
     ScrollTrigger.update();
-    revealMissedScrollAnimations();
 });
 
 function raf(time) {
@@ -516,13 +515,13 @@ function revealMissedScrollAnimations() {
 function initScrollRevealAnimations() {
     // Animate section headings
     gsap.utils.toArray('section:not(#hero) h2, section:not(#hero) h3').forEach((heading) => {
+        heading.dataset.revealed = 'true';
         gsap.to(heading, {
             autoAlpha: 1,
             y: 0,
             duration: 0.8,
             ease: "power3.out",
             clearProps: "all",
-            onStart: () => { heading.dataset.revealed = 'true'; },
             scrollTrigger: {
                 trigger: heading,
                 start: "top bottom",
@@ -554,6 +553,7 @@ function initScrollRevealAnimations() {
     document.querySelectorAll('section:not(#hero) .grid').forEach((grid) => {
         const items = grid.querySelectorAll(':scope > div');
         items.forEach((item, index) => {
+            item.dataset.revealed = 'true';
             gsap.to(item, {
                 autoAlpha: 1,
                 y: 0,
@@ -561,7 +561,6 @@ function initScrollRevealAnimations() {
                 delay: index * 0.08,
                 ease: "power3.out",
                 clearProps: "all",
-                onStart: () => { item.dataset.revealed = 'true'; },
                 scrollTrigger: {
                     trigger: grid,
                     start: "top bottom",
@@ -574,6 +573,7 @@ function initScrollRevealAnimations() {
     // Animate contact form fields
     const formFields = document.querySelectorAll('#contact form > div');
     formFields.forEach((field, index) => {
+        field.dataset.revealed = 'true';
         gsap.to(field, {
             autoAlpha: 1,
             y: 0,
@@ -581,7 +581,6 @@ function initScrollRevealAnimations() {
             delay: index * 0.1,
             ease: "power3.out",
             clearProps: "all",
-            onStart: () => { field.dataset.revealed = 'true'; },
             scrollTrigger: {
                 trigger: '#contact form',
                 start: "top bottom",
@@ -595,6 +594,7 @@ function initScrollRevealAnimations() {
     if (contactSidebar) {
         const sidebarItems = contactSidebar.querySelectorAll(':scope > div');
         sidebarItems.forEach((item, index) => {
+            item.dataset.revealed = 'true';
             gsap.to(item, {
                 autoAlpha: 1,
                 y: 0,
@@ -602,7 +602,6 @@ function initScrollRevealAnimations() {
                 delay: index * 0.1,
                 ease: "power3.out",
                 clearProps: "all",
-                onStart: () => { item.dataset.revealed = 'true'; },
                 scrollTrigger: {
                     trigger: contactSidebar,
                     start: "top bottom",
@@ -615,13 +614,13 @@ function initScrollRevealAnimations() {
     // Animate footer
     const footer = document.querySelector('footer');
     if (footer) {
+        footer.dataset.revealed = 'true';
         gsap.to(footer, {
             autoAlpha: 1,
             y: 0,
             duration: 0.8,
             ease: "power3.out",
             clearProps: "all",
-            onStart: () => { footer.dataset.revealed = 'true'; },
             scrollTrigger: {
                 trigger: footer,
                 start: "top bottom",
@@ -891,7 +890,6 @@ if (viewAllBtn && projectsExtra) {
                     autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.08, ease: 'power3.out',
                     onComplete: () => {
                         extraCards.forEach(el => { el.dataset.revealed = 'true'; });
-                        ScrollTrigger.refresh();
                     }
                 }
             );
