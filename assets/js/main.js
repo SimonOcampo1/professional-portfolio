@@ -506,7 +506,8 @@ function revealMissedScrollAnimations() {
                 y: 0,
                 duration: 0.45,
                 ease: "power3.out",
-                overwrite: "auto"
+                overwrite: "auto",
+                clearProps: "all"
             });
         }
     });
@@ -520,12 +521,12 @@ function initScrollRevealAnimations() {
             y: 0,
             duration: 0.8,
             ease: "power3.out",
+            clearProps: "all",
             onStart: () => { heading.dataset.revealed = 'true'; },
             scrollTrigger: {
                 trigger: heading,
                 start: "top bottom",
-                once: true,
-                fastScrollEnd: true
+                once: true
             }
         });
     });
@@ -541,7 +542,8 @@ function initScrollRevealAnimations() {
                 duration: 0.65,
                 stagger: 0.07,
                 ease: "power3.out",
-                overwrite: true
+                overwrite: true,
+                clearProps: "all"
             });
         },
         start: "top 95%",
@@ -558,12 +560,12 @@ function initScrollRevealAnimations() {
                 duration: 0.7,
                 delay: index * 0.08,
                 ease: "power3.out",
+                clearProps: "all",
                 onStart: () => { item.dataset.revealed = 'true'; },
                 scrollTrigger: {
                     trigger: grid,
                     start: "top bottom",
-                    once: true,
-                    fastScrollEnd: true
+                    once: true
                 }
             });
         });
@@ -578,12 +580,12 @@ function initScrollRevealAnimations() {
             duration: 0.7,
             delay: index * 0.1,
             ease: "power3.out",
+            clearProps: "all",
             onStart: () => { field.dataset.revealed = 'true'; },
             scrollTrigger: {
                 trigger: '#contact form',
                 start: "top bottom",
-                once: true,
-                fastScrollEnd: true
+                once: true
             }
         });
     });
@@ -599,12 +601,12 @@ function initScrollRevealAnimations() {
                 duration: 0.7,
                 delay: index * 0.1,
                 ease: "power3.out",
+                clearProps: "all",
                 onStart: () => { item.dataset.revealed = 'true'; },
                 scrollTrigger: {
                     trigger: contactSidebar,
                     start: "top bottom",
-                    once: true,
-                    fastScrollEnd: true
+                    once: true
                 }
             });
         });
@@ -618,12 +620,12 @@ function initScrollRevealAnimations() {
             y: 0,
             duration: 0.8,
             ease: "power3.out",
+            clearProps: "all",
             onStart: () => { footer.dataset.revealed = 'true'; },
             scrollTrigger: {
                 trigger: footer,
                 start: "top bottom",
-                once: true,
-                fastScrollEnd: true
+                once: true
             }
         });
     }
