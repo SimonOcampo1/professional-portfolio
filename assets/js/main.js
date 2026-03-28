@@ -1,6 +1,12 @@
 // Register GSAP Plugins
 gsap.registerPlugin(ScrollTrigger);
 
+// Prevent GSAP ticker from sleeping on mobile (iOS Safari throttles rAF until user interaction)
+gsap.ticker.lagSmoothing(0);
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") gsap.ticker.wake();
+});
+
 // --- 1. SMOOTH SCROLL (Lenis) ---
 const lenis = new Lenis({
     duration: 1.2,
@@ -714,6 +720,15 @@ window.addEventListener('load', () => {
       .from("#hero h1", { y: 100, opacity: 0, duration: 1.2, ease: "power3.out" }, "-=0.8")
       .from("#hero .flex.flex-col.gap-6", { y: 50, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.9")
       .from("header", { y: -50, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.8");
+
+    // Fallback: on mobile iOS, the GSAP ticker may be paused until first touch.
+    // Resume the ticker and the timeline on first interaction.
+    const resumeOnInteraction = () => {
+        gsap.ticker.wake();
+        if (tl.paused()) tl.play();
+    };
+    document.addEventListener('touchstart', resumeOnInteraction, { once: true, passive: true });
+    document.addEventListener('pointerdown', resumeOnInteraction, { once: true, passive: true });
 });
 
 // --- 13. MOUSE FOLLOWER ---
