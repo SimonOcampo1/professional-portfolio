@@ -709,11 +709,15 @@ function initScrollRevealAnimations() {
     revealMissedScrollAnimations();
 }
 
-window.addEventListener('load', () => {
-    initScrollRevealAnimations();
-    revealMissedScrollAnimations();
-
-    const tl = gsap.timeline();
+// Run preloader immediately — scripts are at bottom of body so DOM is ready.
+// initScrollRevealAnimations runs only after the preloader completes.
+(function runPreloader() {
+    const tl = gsap.timeline({
+        onComplete: () => {
+            initScrollRevealAnimations();
+            revealMissedScrollAnimations();
+        }
+    });
     tl.to('.preloader-text', { y: '0%', duration: 0.8, stagger: 0.1, ease: "power3.out" })
       .to('.preloader-line', { x: '0%', duration: 0.8, ease: "power2.inOut" }, "-=0.4")
       .to('#preloader', { yPercent: -100, duration: 1.0, ease: "expo.inOut" })
@@ -722,14 +726,13 @@ window.addEventListener('load', () => {
       .from("header", { y: -50, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.8");
 
     // Fallback: on mobile iOS, the GSAP ticker may be paused until first touch.
-    // Resume the ticker and the timeline on first interaction.
     const resumeOnInteraction = () => {
         gsap.ticker.wake();
         if (tl.paused()) tl.play();
     };
     document.addEventListener('touchstart', resumeOnInteraction, { once: true, passive: true });
     document.addEventListener('pointerdown', resumeOnInteraction, { once: true, passive: true });
-});
+}());
 
 // --- 13. MOUSE FOLLOWER ---
 const follower = document.createElement('div');
