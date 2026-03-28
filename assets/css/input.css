@@ -85,9 +85,9 @@
 /* Lightbox Orientation Optimization */
 #lightbox-container {
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    width: min(92vw, 1120px);
+    width: fit-content;
+    max-width: min(92vw, 1120px);
     max-height: 90vh;
-    aspect-ratio: 16 / 10;
 }
 
 #lightbox-prev {
@@ -134,6 +134,17 @@
     .carousel-mobile-nav,
     .carousel-mobile-controls {
         display: none !important;
+    }
+
+    .group\/carousel.is-dragging,
+    .group\/carousel.is-dragging * {
+        user-select: none;
+    }
+
+    .group\/carousel img,
+    .group\/carousel video {
+        -webkit-user-drag: none;
+        user-drag: none;
     }
 }
 
@@ -191,7 +202,14 @@
     }
 }
 
-/* Mobile lightbox horizontal layout */
+
+/* Carousel hint responsive text */
+.carousel-hint-mobile { display: inline; }
+.carousel-hint-desktop { display: none; }
+@media (min-width: 768px) {
+    .carousel-hint-mobile { display: none; }
+    .carousel-hint-desktop { display: inline; }
+}
 @media (max-width: 1023px) {
     #lightbox {
         padding: 0.125rem !important;

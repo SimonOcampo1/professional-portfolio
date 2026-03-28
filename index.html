@@ -142,14 +142,15 @@
             }
 
             #lightbox-container {
-                width: min(92vw, 42rem);
-                max-width: min(92vw, 42rem);
+                max-width: min(94vw, 42rem);
             }
 
-            #lightbox-content {
+            #lightbox-content img,
+            #lightbox-content video {
                 width: 100%;
-                aspect-ratio: 16 / 9;
-                max-height: 72vh;
+                height: auto;
+                max-height: 75vh;
+                object-fit: contain !important;
             }
 
             #lightbox-prev {
@@ -166,13 +167,6 @@
                 left: calc(50% + 0.375rem);
                 transform: none !important;
                 margin: 0;
-            }
-
-            #lightbox-content img,
-            #lightbox-content video {
-                width: 100%;
-                height: 100%;
-                object-fit: cover !important;
             }
         }
 
@@ -377,13 +371,37 @@
                                 </div>
                                 <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
                                     <div class="flex gap-6 min-w-max">
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-900 rounded-[2rem] overflow-hidden relative shrink-0 flex items-end p-8 border border-white/5">
-                                            <div class="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-800 to-[#1a2420]"></div>
-                                            <p class="relative z-10 font-headline text-4xl md:text-6xl font-bold text-white/10 leading-none tracking-tighter select-none pointer-events-none" data-i18n="work.project4.title">Architecture Studio Landing</p>
-                                            <span class="absolute top-8 right-8 text-[#7c9885]/40 font-body text-xs uppercase tracking-widest z-10" data-i18n="work.project4.meta">Web Design / 2024</span>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/architecture/architecture%201-hero.png" alt="Architecture Hero" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/architecture/architecture%202-retiros.png" alt="Architecture Retiros" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/architecture/architecture%203-retiros.png" alt="Architecture Retiros 2" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/architecture/architecture%204-retiros.png" alt="Architecture Retiros 3" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/architecture/architecture%205-refugio.png" alt="Architecture Refugio" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/architecture/architecture%206-gallery.png" alt="Architecture Gallery" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/architecture/architecture%207-gallery.png" alt="Architecture Gallery 2" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/architecture/architecture%208-contact.png" alt="Architecture Contact" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
                                     </div>
                                 </div>
+                                <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
+                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
+                                    <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -425,13 +443,37 @@
                                 </div>
                                 <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
                                     <div class="flex gap-6 min-w-max">
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-900 rounded-[2rem] overflow-hidden relative shrink-0 flex items-end p-8 border border-white/5">
-                                            <div class="absolute inset-0 bg-gradient-to-br from-neutral-950 via-neutral-900 to-[#0a1a1a]"></div>
-                                            <p class="relative z-10 font-headline text-4xl md:text-6xl font-bold text-white/10 leading-none tracking-tighter select-none pointer-events-none" data-i18n="work.project5.title">STORM — Atmospheric Monitor</p>
-                                            <span class="absolute top-8 right-8 text-[#7c9885]/40 font-body text-xs uppercase tracking-widest z-10" data-i18n="work.project5.meta">Web Experience / 2024</span>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/storm/storm%201-home.png" alt="Storm Home" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/storm/storm%202-home.png" alt="Storm Home 2" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/storm/storm%203-vortice.png" alt="Storm Vortice" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/storm/storm%204-vortice.png" alt="Storm Vortice 2" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/storm/storm%205-vortice.png" alt="Storm Vortice 3" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/storm/storm%206-telemetria.png" alt="Storm Telemetria" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/storm/storm%207-archivo.png" alt="Storm Archivo" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/storm/storm%208-archivo.png" alt="Storm Archivo 2" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
                                     </div>
                                 </div>
+                                <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
+                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
+                                    <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -473,13 +515,28 @@
                                 </div>
                                 <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
                                     <div class="flex gap-6 min-w-max">
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-900 rounded-[2rem] overflow-hidden relative shrink-0 flex items-end p-8 border border-white/5">
-                                            <div class="absolute inset-0 bg-gradient-to-br from-neutral-900 via-[#1a1f15] to-[#0f1a10]"></div>
-                                            <p class="relative z-10 font-headline text-4xl md:text-6xl font-bold text-white/10 leading-none tracking-tighter select-none pointer-events-none" data-i18n="work.project6.title">SCENT — Botanical Lab Landing</p>
-                                            <span class="absolute top-8 right-8 text-[#7c9885]/40 font-body text-xs uppercase tracking-widest z-10" data-i18n="work.project6.meta">Web Design / 2024</span>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/botany/botany%201-hero.png" alt="Botany Hero" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/botany/botany%202-process.png" alt="Botany Process" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/botany/botany%203-catalog.png" alt="Botany Catalog" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/botany/botany%204-lab.png" alt="Botany Lab" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/botany/botany%205-contact.png" alt="Botany Contact" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
                                     </div>
                                 </div>
+                                <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
+                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
+                                    <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -534,29 +591,32 @@
                                 <!-- Image Carousel (Horizontal Scroll) -->
                                 <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
                                     <div class="flex gap-6 min-w-max">
-                                        <!-- Image 1 (Dynamic Cover) -->
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" 
+                                        <!-- Image 1 -->
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
                                              onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/arsens/arsens-cover-en.png" 
-                                                 data-cover-en="./assets/img/projects/arsens/arsens-cover-en.png"
-                                                 data-cover-es="./assets/img/projects/arsens/arsens-cover-es.png" 
-                                                 alt="ArSens Interface"
-                                                class="project-cover w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                            <img src="./assets/img/projects/arsens/arsens-1.png" alt="ArSens Interface"
+                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
                                         <!-- Image 2 -->
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
                                              onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/arsens/arsens-1.png" alt="ArSens Details"
+                                            <img src="./assets/img/projects/arsens/arsens-2.png" alt="ArSens Details"
                                                 class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
                                         <!-- Image 3 -->
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
                                              onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/arsens/arsens-2.png" alt="ArSens Accessibility"
+                                            <img src="./assets/img/projects/arsens/arsens-3.png" alt="ArSens Accessibility"
+                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <!-- Image 4 -->
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/arsens/arsens-4.png" alt="ArSens Features"
                                                 class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
                                         <!-- Video -->
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5 cursor-pointer group"
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5 cursor-pointer group"
                                              onclick="openLightbox(this)">
                                             <video src="./assets/img/projects/arsens/arsens-demo.mp4" class="w-full h-full object-cover rounded-[2rem]" muted loop playsinline preload="metadata"></video>
                                             <span class="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -567,6 +627,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
+                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
+                                    <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
+                                </p>
 
                             </div>
                         </div>
@@ -617,27 +682,39 @@
                             <!-- Image Carousel -->
                                 <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
                                     <div class="flex gap-6 min-w-max">
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
                                              onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/kicenter/kicenter-cover-en.png" 
-                                                 data-cover-en="./assets/img/projects/kicenter/kicenter-cover-en.png"
-                                                 data-cover-es="./assets/img/projects/kicenter/kicenter-cover-es.png" 
-                                                 alt="Dashboard"
-                                                class="project-cover w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                            <img src="./assets/img/projects/kicenter/kicenter%200-turnos.png" alt="KICenter Turnos"
+                                                class="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
                                              onclick="openLightbox(this)">
-                                             <img src="./assets/img/projects/kicenter/home-main.png" alt="Patient Records"
-                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                            <img src="./assets/img/projects/kicenter/kicenter%201-main.png" alt="KICenter Main"
+                                                class="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
                                              onclick="openLightbox(this)">
-                                             <img src="./assets/img/projects/kicenter/kine-consultas.png" alt="Scheduler UI"
-                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                            <img src="./assets/img/projects/kicenter/kicenter%202-consultas.png" alt="KICenter Consultas"
+                                                class="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5 cursor-pointer group"
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
                                              onclick="openLightbox(this)">
-                                            <video src="./assets/img/projects/kicenter/kicenter-demo.mp4" class="w-full h-full object-cover rounded-[2rem]" muted loop playsinline preload="metadata"></video>
+                                            <img src="./assets/img/projects/kicenter/kicenter%203-historialclinico.png" alt="KICenter Historial Clínico"
+                                                class="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/kicenter/kicenter%204-pacientes.png" alt="KICenter Pacientes"
+                                                class="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/kicenter/kicenter%205-login.png" alt="KICenter Login"
+                                                class="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 flex items-center justify-center border border-white/5 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                            <video src="./assets/img/projects/kicenter/kicenter%206-demo.mp4" class="w-full h-full object-cover rounded-[2rem]" muted loop playsinline preload="metadata"></video>
                                             <span class="absolute inset-0 flex items-center justify-center pointer-events-none">
                                                 <span class="w-12 h-12 rounded-full border border-white/40 bg-black/30 text-white inline-flex items-center justify-center">
                                                     <span class="material-symbols-outlined text-xl">play_arrow</span>
@@ -646,6 +723,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
+                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
+                                    <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
+                                </p>
 
                             </div>
                         </div>
@@ -699,31 +781,48 @@
                                 <!-- Image Carousel -->
                                 <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
                                     <div class="flex gap-6 min-w-max">
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
                                              onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/atlas-automotriz/atlas-banner-en.png" 
-                                                 data-cover-en="./assets/img/projects/atlas-automotriz/atlas-banner-en.png"
-                                                 data-cover-es="./assets/img/projects/atlas-automotriz/atlas-banner-es.png" 
-                                                 alt="Atlas Platform"
-                                                class="project-cover w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
-                                             onclick="openLightbox(this)">
-                                             <img src="./assets/img/projects/atlas-automotriz/atlas-1.png" alt="Vehicle Catalog"
+                                            <img src="./assets/img/projects/atlas-automotriz/atlas-1.png" alt="Atlas Platform"
                                                 class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
                                              onclick="openLightbox(this)">
-                                             <img src="./assets/img/projects/atlas-automotriz/atlas-2.png" alt="Premium Showcase"
+                                             <img src="./assets/img/projects/atlas-automotriz/atlas-2.png" alt="Atlas Vehicle Catalog"
                                                 class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
-                                        <div class="w-[400px] h-[300px] md:w-[600px] md:h-[400px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
                                              onclick="openLightbox(this)">
-                                             <img src="./assets/img/projects/atlas-automotriz/atlas-3.png" alt="Sales Workflow"
+                                             <img src="./assets/img/projects/atlas-automotriz/atlas-3.png" alt="Atlas Premium"
+                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                             <img src="./assets/img/projects/atlas-automotriz/atlas-4.png" alt="Atlas Sales"
+                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                             <img src="./assets/img/projects/atlas-automotriz/atlas-5.png" alt="Atlas Detail"
+                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                             <img src="./assets/img/projects/atlas-automotriz/atlas-6.png" alt="Atlas Financing"
+                                                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group"
+                                             onclick="openLightbox(this)">
+                                             <img src="./assets/img/projects/atlas-automotriz/atlas-7.png" alt="Atlas Contact"
                                                 class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
                                         </div>
                                     </div>
                                 </div>
+                                <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
+                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
+                                    <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
+                                </p>
 
                             </div>
                         </div>
@@ -989,7 +1088,7 @@
             <button id="lightbox-next" data-lightbox-nav class="absolute top-1/2 -translate-y-1/2 w-11 h-11 inline-flex items-center justify-center rounded-full border border-white/30 text-white bg-black/20 hover:border-[#7c9885] hover:text-[#7c9885] transition-colors z-[120]" aria-label="Next media" onclick="navigateLightbox(1)">
                 <span class="material-symbols-outlined text-xl">arrow_forward</span>
             </button>
-            <div id="lightbox-content" class="w-full h-full flex items-center justify-center rounded-[1.5rem] overflow-hidden">
+            <div id="lightbox-content" class="flex items-center justify-center rounded-[1.5rem] overflow-hidden">
                 <!-- Content injected via JS -->
             </div>
         </div>

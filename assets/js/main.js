@@ -80,6 +80,8 @@ carouselWrappers.forEach((wrapper) => {
     const cards = track ? Array.from(track.children) : [];
     if (!track || !cards.length) return;
 
+    track.querySelectorAll('img, video').forEach(el => el.setAttribute('draggable', 'false'));
+
     let currentX = 0;
     let targetX = 0;
     let maxScroll = 0;
@@ -90,6 +92,11 @@ carouselWrappers.forEach((wrapper) => {
     let mobileCounter = null;
     let touchStartX = 0;
     let touchStartY = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartTargetX = 0;
+    let hasDragged = false;
+    let activePtrId = null;
 
     const isMobileGallery = () => window.innerWidth < 768;
 
@@ -203,6 +210,52 @@ carouselWrappers.forEach((wrapper) => {
         if (targetX < 0) targetX = 0;
         if (targetX > maxScroll) targetX = maxScroll;
     }, { passive: false });
+
+    wrapper.addEventListener('pointerdown', (e) => {
+        if (isMobileGallery() || e.button !== 0) return;
+        updateMax();
+        if (maxScroll <= 0) return;
+        isDragging = true;
+        hasDragged = false;
+        dragStartX = e.clientX;
+        dragStartTargetX = targetX;
+        activePtrId = e.pointerId;
+        wrapper.classList.add('is-dragging');
+    });
+
+    document.addEventListener('pointermove', (e) => {
+        if (e.pointerId === activePtrId && !isMobileGallery()) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        }
+        if (!isDragging || e.pointerId !== activePtrId || isMobileGallery()) return;
+        const delta = dragStartX - e.clientX;
+        if (Math.abs(delta) > 5) hasDragged = true;
+        targetX = Math.min(maxScroll, Math.max(0, dragStartTargetX + delta));
+    });
+
+    document.addEventListener('pointerup', (e) => {
+        if (!isDragging || e.pointerId !== activePtrId) return;
+        isDragging = false;
+        activePtrId = null;
+        wrapper.classList.remove('is-dragging');
+    });
+
+    document.addEventListener('pointercancel', (e) => {
+        if (e.pointerId !== activePtrId) return;
+        isDragging = false;
+        hasDragged = false;
+        activePtrId = null;
+        wrapper.classList.remove('is-dragging');
+    });
+
+    wrapper.addEventListener('click', (e) => {
+        if (hasDragged) {
+            e.stopPropagation();
+            e.preventDefault();
+            hasDragged = false;
+        }
+    }, true);
 
     wrapper.addEventListener('touchstart', (e) => {
         if (!isMobileGallery() || !e.touches || e.touches.length === 0) return;
@@ -367,6 +420,8 @@ const translations = {
         'hero.downloadCV': 'Download CV',
         'work.viewLive': 'View Live',
         'work.viewOnGithub': 'View on GitHub',
+        'work.tapToEnlarge': 'Tap to enlarge',
+        'work.clickToEnlarge': 'Click to enlarge',
         'work.project1.title': 'Software for the Visually Impaired', 'work.project1.meta': 'Software Development / 2023-Present',
         'work.project1.desc': 'Development of an adaptability module for data acquisition software, aimed at visually impaired users.',
         'work.project2.title': 'Web App for Kinesiology Center', 'work.project2.meta': 'Web App / 2024-2025',
@@ -405,6 +460,8 @@ const translations = {
         'hero.downloadCV': 'Descargar CV',
         'work.viewLive': 'Ver en Vivo',
         'work.viewOnGithub': 'Ver en GitHub',
+        'work.tapToEnlarge': 'Toca para ampliar',
+        'work.clickToEnlarge': 'Clic para ampliar',
         'work.project1.title': 'Software para No-videntes', 'work.project1.meta': 'Desarrollo de Software / 2023-Presente',
         'work.project1.desc': 'Desarrollo de un módulo de adaptabilidad para un software adquisidor de datos, orientado a usuarios no-videntes.',
         'work.project2.title': 'Web App para Centro de Kinesiología', 'work.project2.meta': 'Aplicación Web / 2024-2025',
@@ -699,7 +756,8 @@ function renderLightboxMedia(src, type) {
     if (type === 'image') {
         const img = document.createElement('img');
         img.src = src;
-        img.className = 'w-full h-full object-cover rounded-[1.5rem]';
+        img.className = 'block max-w-full w-auto h-auto rounded-[1.5rem]';
+        img.style.maxHeight = '85vh';
         lightboxContent.appendChild(img);
     } else if (type === 'video') {
         const video = document.createElement('video');
@@ -711,7 +769,8 @@ function renderLightboxMedia(src, type) {
         video.setAttribute('controls', '');
         video.setAttribute('controlsList', 'nodownload');
         video.playsInline = true;
-        video.className = 'w-full h-full object-cover rounded-[1.5rem]';
+        video.className = 'block max-w-full w-auto h-auto rounded-[1.5rem]';
+        video.style.maxHeight = '85vh';
         lightboxContent.appendChild(video);
     }
 }

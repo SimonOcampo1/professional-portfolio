@@ -70,5 +70,6 @@ module.exports = {
       }
     },
   },
+  safelist: ['md:hidden', 'hidden', 'md:inline'],
   plugins: [],
 }
