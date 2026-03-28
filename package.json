@@ -2,6 +2,9 @@
   "name": "portfolio-aesthetic",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "build:css": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/styles.css --minify",
     "watch:css": "npx tailwindcss -i ./assets/css/input.css -o ./assets/css/styles.css --watch"
