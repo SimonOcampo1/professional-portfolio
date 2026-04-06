@@ -82,6 +82,19 @@
     transform: scale(1);
 }
 
+/* Dynamic viewport height fix: overrides h-screen (100vh) for mobile browser chrome.
+   Mobile browsers reserve space for the address/nav bar which is NOT reflected in 100vh.
+   --real-vh is set by JS to window.innerHeight (actual visible area).
+   100dvh adjusts dynamically on modern browsers. */
+#hero {
+  height: var(--real-vh, 100vh);
+}
+@supports (height: 100dvh) {
+  #hero {
+    height: 100dvh;
+  }
+}
+
 /* Lightbox Orientation Optimization */
 #lightbox-container {
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);

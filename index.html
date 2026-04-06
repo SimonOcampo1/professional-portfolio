@@ -4,6 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Set --real-vh to window.innerHeight (excludes mobile browser chrome).
+        // Runs immediately so the hero never renders at the wrong height.
+        (function () {
+            function setRealVH() {
+                document.documentElement.style.setProperty('--real-vh', window.innerHeight + 'px');
+            }
+            setRealVH();
+            window.addEventListener('resize', setRealVH);
+            window.addEventListener('orientationchange', function () {
+                setTimeout(setRealVH, 150);
+            });
+        })();
+    </script>
     <title>Simón Ocampo</title>
     <link rel="icon" type="image/png" href="./assets/img/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
