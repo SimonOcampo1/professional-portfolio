@@ -82,17 +82,13 @@
     transform: scale(1);
 }
 
-/* Dynamic viewport height fix: overrides h-screen (100vh) for mobile browser chrome.
-   Mobile browsers reserve space for the address/nav bar which is NOT reflected in 100vh.
-   --real-vh is set by JS to window.innerHeight (actual visible area).
-   100dvh adjusts dynamically on modern browsers. */
+/* Dynamic viewport height fix — fix-dynamic-viewport skill applied.
+   #hero is a flow element: using 100svh keeps it stable during mobile browser bar show/hide.
+   Cascade: 100vh (universal fallback) → calc(var(--vh)*100) (JS-set) → 100svh (native, best). */
 #hero {
-  height: var(--real-vh, 100vh);
-}
-@supports (height: 100dvh) {
-  #hero {
-    height: 100dvh;
-  }
+  height: 100vh;                       /* universal fallback */
+  height: calc(var(--vh, 1vh) * 100);  /* JS-set once on load, debounced on resize */
+  height: 100svh;                      /* Chrome 108+, Safari 15.4+, Firefox 101+ — stable, no reflow */
 }
 
 /* Lightbox Orientation Optimization */

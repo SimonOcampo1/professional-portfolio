@@ -5,16 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        // Set --real-vh to window.innerHeight (excludes mobile browser chrome).
-        // Runs immediately so the hero never renders at the wrong height.
+        // fix-dynamic-viewport: Set --vh once on load using initial visible viewport size.
+        // DO NOT update on scroll — only on true resize (orientation, window snap).
+        // CSS cascade: 100vh → calc(var(--vh)*100) → 100svh (see input.css #hero).
         (function () {
-            function setRealVH() {
-                document.documentElement.style.setProperty('--real-vh', window.innerHeight + 'px');
+            function setVH() {
+                document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
             }
-            setRealVH();
-            window.addEventListener('resize', setRealVH);
+            setVH(); // run once on load
+            var _vhTimer;
+            window.addEventListener('resize', function () {
+                clearTimeout(_vhTimer);
+                _vhTimer = setTimeout(setVH, 150); // debounced — avoids firing on bar show/hide
+            });
             window.addEventListener('orientationchange', function () {
-                setTimeout(setRealVH, 150);
+                clearTimeout(_vhTimer);
+                _vhTimer = setTimeout(setVH, 200);
             });
         })();
     </script>
