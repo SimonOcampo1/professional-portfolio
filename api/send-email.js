@@ -36,7 +36,7 @@ module.exports = async function handler(req, res) {
             subject: `New contact from ${name} — Portfolio`,
             html: `
                 <div style="font-family: 'Space Grotesk', sans-serif; max-width: 600px; margin: 0 auto; background: #0d0d0d; color: #fff; padding: 40px; border-radius: 12px;">
-                    <h2 style="color: #7c9885; font-size: 24px; margin-bottom: 24px; letter-spacing: 0.1em; text-transform: uppercase;">New Contact Message</h2>
+                    <h2 style="color: #8c8c8c; font-size: 24px; margin-bottom: 24px; letter-spacing: 0.1em; text-transform: uppercase;">New Contact Message</h2>
                     <table style="width: 100%; border-collapse: collapse;">
                         <tr>
                             <td style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; width: 100px;">Name</td>
@@ -44,7 +44,7 @@ module.exports = async function handler(req, res) {
                         </tr>
                         <tr>
                             <td style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em;">Email</td>
-                            <td style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 16px;"><a href="mailto:${email}" style="color: #7c9885;">${email}</a></td>
+                            <td style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 16px;"><a href="mailto:${email}" style="color: #8c8c8c;">${email}</a></td>
                         </tr>
                     </table>
                     <div style="margin-top: 32px;">

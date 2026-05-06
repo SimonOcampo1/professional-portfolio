@@ -43,7 +43,7 @@ module.exports = {
         'on-error-container': '#ffdad6',
         
         // Custom Accent from Hero
-        'accent': '#7c9885',
+        'accent': '#8c8c8c',
 
         // Keep legacy void colors for safety during migration, mapped to new system where possible
         'void-black': '#131313', 

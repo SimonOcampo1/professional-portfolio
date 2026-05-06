@@ -916,7 +916,7 @@ if (contactForm) {
         const errorEl = contactForm.querySelector(`[data-error-for="${fieldId}"]`);
         const wrapper = errorEl ? errorEl.closest('.border-b') : null;
         if (errorEl) errorEl.classList.toggle('hidden', !show);
-        if (wrapper) wrapper.classList.toggle('border-[#7c9885]/30', show);
+        if (wrapper) wrapper.classList.toggle('border-[#8c8c8c]/30', show);
     }
 
     function validateField(input) {
