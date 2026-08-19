@@ -1,62 +1,40 @@
-# SIMÓN OCAMPO | PORTAFOLIO PROFESIONAL
+# Simón Ocampo — Portafolio
 
-> "Software, investigación y diseño con enfoque humano."
+**Software, investigación y diseño con enfoque humano.**
 
-Portafolio web responsivo y bilingüe (EN/ES) diseñado para exhibir proyectos de desarrollo, competencias técnicas y académicas, y publicaciones de investigación en filosofía de la religión y teología analítica.
+Portafolio web bilingüe (ES/EN) con proyectos de desarrollo, competencias técnicas y publicaciones en filosofía de la religión y teología analítica.
 
-## Funcionalidades
+## 🚀 Características
 
-- **Navegación Fluida**: Implementación de scroll suave con Lenis y animaciones GSAP.
-- **Carruseles Interactivos**: Navegación horizontal mediante scroll/rueda del ratón dentro del área del carrusel de cada proyecto.
-- **Lightbox de Medios**: Visualización de imágenes y videos en pantalla completa con soporte responsivo (vista horizontal optimizada en móviles) y controles de reproducción.
-- **Internacionalización (i18n)**: Soporte bilingüe completo que incluye el intercambio dinámico de portadas de proyectos según el idioma seleccionado.
-- **Estética Premium**: Diseño de "lujo silencioso" con bordes redondeados pronunciados (`rounded-3xl`), micro-interacciones y tipografías modernas (Syne y Space Grotesk).
+- **Bilingüe de verdad** — el cambio de idioma también intercambia las portadas de cada proyecto, no solo los textos.
+- **Carruseles horizontales** — navegación con la rueda del mouse dentro del área del carrusel, sin robarle el scroll a la página.
+- **Lightbox de imagen y video** — pantalla completa con controles de reproducción y vista horizontal optimizada en móvil.
+- **Scroll y animación** — Lenis para el desplazamiento, GSAP para las revelaciones.
+- **Formulario de contacto sin backend propio** — función serverless en Vercel.
+- **CV descargable** en ambos idiomas.
 
-## Estructura del Proyecto
+## 📂 Estructura
 
-```bash
-professional-portfolio/
-├── assets/
-│   ├── css/
-│   │   ├── input.css        # Estilos fuente y configuraciones de Tailwind
-│   │   └── styles.css       # CSS compilado y minificado para producción
-│   ├── js/
-│   │   └── main.js          # Lógica de i18n, carruseles, lightbox y animaciones
-│   └── img/
-│       ├── projects/        # Activos visuales (imágenes/videos) organizados por proyecto
-│       └── ...              # Otros activos (logo, hero image)
-├── index.html               # Estructura principal y marcado semántico
-├── tailwind.config.js       # Configuración de diseño y tokens de Tailwind
-├── package.json             # Dependencias y scripts de construcción
-└── README.md                # Documentación del proyecto (Español)
+```
+index.html            Página única
+assets/css/           input.css (fuente Tailwind) → styles.css (compilado)
+assets/js/main.js     i18n, carruseles, lightbox, GSAP y Lenis
+assets/cv/            cv-es.pdf · cv-en.pdf
+api/send-email.js     Función serverless del formulario de contacto
+vercel.json           Configuración de despliegue
 ```
 
-## Stack Tecnológico
+## 🛠️ Stack
 
-- **Core**: HTML5, Vanilla JavaScript (ES6+).
-- **Estilos**: Tailwind CSS (Utilidades optimizadas).
-- **Animaciones**: GSAP (GreenSock Animation Platform) + ScrollTrigger.
-- **Motor de Scroll**: Lenis Smooth Scroll.
-- **Iconografía**: Google Material Symbols.
+HTML5 · Tailwind CSS · JavaScript · GSAP · Lenis · Vercel Serverless Functions · Tipografías Syne y Space Grotesk
 
-## Configuración y Desarrollo
+## 💻 Puesta en marcha
 
-1. **Instalación**:
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/SimonOcampo1/professional-portfolio.git
+cd professional-portfolio
+npm install
+npm run watch:css     # recompila Tailwind al vuelo
+```
 
-2. **Compilación de Estilos (Tailwind)**:
-   ```bash
-   # Para desarrollo (modo observación)
-   npm run watch:css
-   
-   # Para producción (minificado)
-   npm run build:css
-   ```
-
-3. **Ejecución**:
-   El proyecto es una aplicación estática. Puede servirse localmente con extensiones como "Live Server" en VS Code o desplegarse directamente en Vercel, Netlify o GitHub Pages.
-
----
-*Diseñado y desarrollado por Simón Ocampo.*
+Con el CSS compilado, servir la carpeta (`python -m http.server 8000`) o abrir `index.html`. Para producción: `npm run build:css`.
