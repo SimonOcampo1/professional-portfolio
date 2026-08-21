@@ -33,32 +33,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
-        rel="stylesheet" />
     <style>
-        /* Material Symbols dibuja iconos con LIGADURAS: el texto "expand_more" esta
-           literalmente en el DOM y la fuente lo reemplaza por el glifo. Hasta que la
-           fuente aplica, el fallback no tiene esa ligadura y se ve la palabra cruda.
-           font-display:block no alcanza — su ventana de bloqueo expira y el texto
-           vuelve a aparecer. Los ocultamos hasta que document.fonts lo confirme.
-           visibility (y no display) para que no haya salto de layout. */
-        .material-symbols-outlined { visibility: hidden; }
-        html.iconos-listos .material-symbols-outlined { visibility: visible; }
+        /* Iconos como SVG inline: sin webfont, sin espera de red y sin reflow.
+           1em los ata al font-size heredado, currentColor al color del texto. */
+        .ico { width: 1em; height: 1em; fill: currentColor; display: inline-block; vertical-align: middle; flex-shrink: 0; }
     </style>
-    <script>
-        (function () {
-            var mostrar = function () { document.documentElement.classList.add('iconos-listos'); };
-            // Red de seguridad: si la fuente falla o tarda, mejor la palabra que un hueco eterno.
-            var red = setTimeout(mostrar, 3000);
-            var listo = function () { clearTimeout(red); mostrar(); };
-            if (document.fonts && document.fonts.load) {
-                document.fonts.load('24px "Material Symbols Outlined"').then(listo, listo);
-            } else {
-                listo();
-            }
-        })();
-    </script>
     <link href="./assets/css/styles.css" rel="stylesheet">
     <style>
         html.lenis,
@@ -221,6 +200,7 @@
 </head>
 
 <body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-open_in_new" viewBox="0 -960 960 960"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></symbol><symbol id="i-open_in_full" viewBox="0 -960 960 960"><path d="M120-120v-320h80v184l504-504H520v-80h320v320h-80v-184L256-200h184v80H120Z"/></symbol><symbol id="i-expand_more" viewBox="0 -960 960 960"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></symbol><symbol id="i-play_arrow" viewBox="0 -960 960 960"><path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/></symbol><symbol id="i-arrow_outward" viewBox="0 -960 960 960"><path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z"/></symbol><symbol id="i-download" viewBox="0 -960 960 960"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></symbol><symbol id="i-close" viewBox="0 -960 960 960"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></symbol><symbol id="i-arrow_forward" viewBox="0 -960 960 960"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></symbol><symbol id="i-arrow_back" viewBox="0 -960 960 960"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></symbol></svg>
 
     <!-- PRELOADER -->
     <div id="preloader" class="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center">
@@ -342,7 +322,7 @@
                             <a id="cv-download-btn" href="./assets/cv/cv-en.pdf" download
                                 class="inline-flex items-center gap-2 self-start md:self-end px-4 py-1.5 border border-white/30 text-white/70 text-[11px] uppercase tracking-widest rounded-full hover:border-white hover:text-white hover:bg-white/10 transition-all duration-300 font-body mb-2"
                                 data-magnetic>
-                                <span class="material-symbols-outlined" style="font-size:14px;">download</span>
+                                <svg class="ico" style="font-size:14px;" aria-hidden="true"><use href="#i-download"/></svg>
                                 <span data-i18n="hero.downloadCV">Download CV</span>
                             </a>
                             <span class="font-body text-sm text-white uppercase tracking-widest font-bold" data-i18n="hero.role1">Systems
@@ -391,7 +371,7 @@
                                 <span data-i18n="work.project7.title">Braingent STO — Agentic OS</span></h3>
                             <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
                                 <span class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project7.meta">Agentic OS / 2026</span>
-                                <span class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]">expand_more</span>
+                                <svg class="ico text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]" aria-hidden="true"><use href="#i-expand_more"/></svg>
                             </div>
                         </button>
                         <div class="project-content h-0 overflow-hidden">
@@ -410,7 +390,7 @@
                                         <a href="https://github.com/SimonOcampo1/braingent-sto" target="_blank"
                                             class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
                                             <span data-i18n="work.viewOnGithub">View on GitHub</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
                                         </a>
                                     </div>
                                 </div>
@@ -428,7 +408,263 @@
                                     </div>
                                 </div>
                                 <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
-                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <svg class="ico" style="font-size:0.9rem" aria-hidden="true"><use href="#i-open_in_full"/></svg>
+                                    <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
+                                    <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 12: Machine Learning · Estudio -->
+                    <div class="project-accordion group border-b border-white/10 overflow-hidden transition-colors duration-500">
+                        <button class="project-header w-full py-16 flex flex-col md:flex-row justify-between items-start md:items-center text-left transition-colors duration-500 outline-none">
+                            <h3 class="font-headline text-4xl md:text-6xl text-white group-hover:text-[#8c8c8c] transition-colors duration-300">
+                                <span data-i18n="work.project12.title">Machine Learning · Estudio</span></h3>
+                            <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
+                                <span class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project12.meta">Learning Site / 2026</span>
+                                <svg class="ico text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]" aria-hidden="true"><use href="#i-expand_more"/></svg>
+                            </div>
+                        </button>
+                        <div class="project-content h-0 overflow-hidden">
+                            <div class="pb-12 pt-0 px-0 md:px-8">
+                                <div class="mb-12 max-w-3xl">
+                                    <p class="font-body text-lg text-neutral-300 leading-relaxed mb-6" data-i18n="work.project12.desc">
+                                        A machine learning study site built for two friends starting from zero: 24 topics across 6 phases, from what a variable is to neural networks. Diagrams draw themselves on scroll, exercises are graded in the browser, and progress is written to localStorage before the network so it survives a failed request.
+                                    </p>
+                                    <div class="flex flex-wrap gap-4 mb-6">
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">JavaScript</span>
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">GSAP</span>
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">KaTeX</span>
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">Vercel</span>
+                                    </div>
+                                    <div class="flex items-center gap-6 flex-wrap">
+                                        <a href="https://machine-learning-app-nu.vercel.app" target="_blank"
+                                            class="inline-flex items-center gap-2 text-[#8c8c8c] border-b border-[#8c8c8c]/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
+                                            <span data-i18n="work.viewLive">View Live</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
+                                        </a>
+                                        <a href="https://github.com/SimonOcampo1/machine-learning-app" target="_blank"
+                                            class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
+                                            <span data-i18n="work.viewOnGithub">View on GitHub</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
+                                    <div class="flex gap-6 min-w-max">
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mlestudio/ml-1-home.webp" loading="lazy" alt="ML Estudio home" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mlestudio/ml-2-temas.webp" loading="lazy" alt="Topic index" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mlestudio/ml-3-tema.webp" loading="lazy" alt="A topic page" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mlestudio/ml-4-diagrama-regresion.webp" loading="lazy" alt="Least squares diagram" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mlestudio/ml-5-diagrama-clasificacion.webp" loading="lazy" alt="Classification diagram" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mlestudio/ml-6-ejercicios.webp" loading="lazy" alt="Interactive exercises" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mlestudio/ml-7-terminal-python.webp" loading="lazy" alt="Python running in the browser" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
+                                    <svg class="ico" style="font-size:0.9rem" aria-hidden="true"><use href="#i-open_in_full"/></svg>
+                                    <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
+                                    <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 9: Academic Generator — RAG -->
+                    <div class="project-accordion group border-b border-white/10 overflow-hidden transition-colors duration-500">
+                        <button class="project-header w-full py-16 flex flex-col md:flex-row justify-between items-start md:items-center text-left transition-colors duration-500 outline-none">
+                            <h3 class="font-headline text-4xl md:text-6xl text-white group-hover:text-[#8c8c8c] transition-colors duration-300">
+                                <span data-i18n="work.project9.title">Academic Generator — RAG</span></h3>
+                            <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
+                                <span class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project9.meta">Data Science / 2026</span>
+                                <svg class="ico text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]" aria-hidden="true"><use href="#i-expand_more"/></svg>
+                            </div>
+                        </button>
+                        <div class="project-content h-0 overflow-hidden">
+                            <div class="pb-12 pt-0 px-0 md:px-8">
+                                <div class="mb-12 max-w-3xl">
+                                    <p class="font-body text-lg text-neutral-300 leading-relaxed mb-6" data-i18n="work.project9.desc">
+                                        A retrieval-augmented generation system that crosses a relational database holding real academic records with a vector store of the degree syllabus. It writes study plans, trajectory reports and elective recommendations that cite concrete subjects and grades instead of inventing them.
+                                    </p>
+                                    <div class="flex flex-wrap gap-4 mb-6">
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">Python</span>
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">SQLite</span>
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">Chroma</span>
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">Ollama</span>
+                                    </div>
+                                    <div class="flex items-center gap-6 flex-wrap">
+                                        <a href="https://github.com/SimonOcampo1/generador-academico-rag" target="_blank"
+                                            class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
+                                            <span data-i18n="work.viewOnGithub">View on GitHub</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
+                                    <div class="flex gap-6 min-w-max">
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/rag/rag-1-app.webp" loading="lazy" alt="RAG web app" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/rag/rag-2-pipeline.webp" loading="lazy" alt="RAG pipeline" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/rag/rag-3-clustering.webp" loading="lazy" alt="Student clustering" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/rag/rag-4-radar.webp" loading="lazy" alt="Area radar" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/rag/rag-5-aporte.webp" loading="lazy" alt="RAG contribution" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/rag/rag-6-avance.webp" loading="lazy" alt="Yearly progress" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
+                                    <svg class="ico" style="font-size:0.9rem" aria-hidden="true"><use href="#i-open_in_full"/></svg>
+                                    <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
+                                    <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 10: Blockchain Mempool Simulation -->
+                    <div class="project-accordion group border-b border-white/10 overflow-hidden transition-colors duration-500">
+                        <button class="project-header w-full py-16 flex flex-col md:flex-row justify-between items-start md:items-center text-left transition-colors duration-500 outline-none">
+                            <h3 class="font-headline text-4xl md:text-6xl text-white group-hover:text-[#8c8c8c] transition-colors duration-300">
+                                <span data-i18n="work.project10.title">Blockchain Mempool Simulation</span></h3>
+                            <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
+                                <span class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project10.meta">Simulation / 2025</span>
+                                <svg class="ico text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]" aria-hidden="true"><use href="#i-expand_more"/></svg>
+                            </div>
+                        </button>
+                        <div class="project-content h-0 overflow-hidden">
+                            <div class="pb-12 pt-0 px-0 md:px-8">
+                                <div class="mb-12 max-w-3xl">
+                                    <p class="font-body text-lg text-neutral-300 leading-relaxed mb-6" data-i18n="work.project10.desc">
+                                        A discrete-event simulation of the Bitcoin mempool, from empirical data capture through to statistical analysis. Arrival processes are modelled by robust distribution fitting, and a factorial experimental design with ANOVA measures how arrival rate, fee distribution and block capacity drive network congestion.
+                                    </p>
+                                    <div class="flex flex-wrap gap-4 mb-6">
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">Python</span>
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">SimPy</span>
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">SciPy</span>
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">pandas</span>
+                                    </div>
+                                    <div class="flex items-center gap-6 flex-wrap">
+                                        <a href="https://github.com/SimonOcampo1/TP-Final-Simulacion-Mempool-Bitcoin" target="_blank"
+                                            class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
+                                            <span data-i18n="work.viewOnGithub">View on GitHub</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
+                                    <div class="flex gap-6 min-w-max">
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mempool/mempool-0-modelo.webp" loading="lazy" alt="Simulation model architecture" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mempool/mempool-1.webp" loading="lazy" alt="Mempool figure 1" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mempool/mempool-2.webp" loading="lazy" alt="Mempool figure 2" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mempool/mempool-3.webp" loading="lazy" alt="Mempool figure 3" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mempool/mempool-4.webp" loading="lazy" alt="Mempool figure 4" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mempool/mempool-5.webp" loading="lazy" alt="Mempool figure 5" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/mempool/mempool-6.webp" loading="lazy" alt="Mempool figure 6" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
+                                    <svg class="ico" style="font-size:0.9rem" aria-hidden="true"><use href="#i-open_in_full"/></svg>
+                                    <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
+                                    <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 11: Legacy Core — Memory Archive -->
+                    <div class="project-accordion group border-b border-white/10 overflow-hidden transition-colors duration-500">
+                        <button class="project-header w-full py-16 flex flex-col md:flex-row justify-between items-start md:items-center text-left transition-colors duration-500 outline-none">
+                            <h3 class="font-headline text-4xl md:text-6xl text-white group-hover:text-[#8c8c8c] transition-colors duration-300">
+                                <span data-i18n="work.project11.title">Legacy Core — Memory Archive</span></h3>
+                            <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
+                                <span class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project11.meta">Web App / 2026</span>
+                                <svg class="ico text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]" aria-hidden="true"><use href="#i-expand_more"/></svg>
+                            </div>
+                        </button>
+                        <div class="project-content h-0 overflow-hidden">
+                            <div class="pb-12 pt-0 px-0 md:px-8">
+                                <div class="mb-12 max-w-3xl">
+                                    <p class="font-body text-lg text-neutral-300 leading-relaxed mb-6" data-i18n="work.project11.desc">
+                                        A private multi-group memory archive built as a React single-page app. It holds a member directory with relational profiles, a shared timeline, a media gallery and long-form narratives, with filters that survive navigation.
+                                    </p>
+                                    <div class="flex flex-wrap gap-4 mb-6">
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">React 19</span>
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">TypeScript</span>
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">Appwrite</span>
+                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">GSAP</span>
+                                    </div>
+                                    <div class="flex items-center gap-6 flex-wrap">
+                                        <a href="https://github.com/SimonOcampo1/legacy-core" target="_blank"
+                                            class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
+                                            <span data-i18n="work.viewOnGithub">View on GitHub</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
+                                    <div class="flex gap-6 min-w-max">
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/legacycore/legacycore-1-home.webp" loading="lazy" alt="Legacy Core home" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/legacycore/legacycore-2-timeline.webp" loading="lazy" alt="Legacy Core timeline" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/legacycore/legacycore-3-historias.webp" loading="lazy" alt="Legacy Core narratives" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/legacycore/legacycore-4-historia-detalle.webp" loading="lazy" alt="Reading a narrative" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/legacycore/legacycore-5-directorio.webp" loading="lazy" alt="Member directory" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
+                                            <img src="./assets/img/projects/legacycore/legacycore-6-galeria.webp" loading="lazy" alt="Media gallery" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
+                                    <svg class="ico" style="font-size:0.9rem" aria-hidden="true"><use href="#i-open_in_full"/></svg>
                                     <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
                                     <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
                                 </p>
@@ -443,7 +679,7 @@
                                 <span data-i18n="work.project8.title">MateKnow — Learning Platform</span></h3>
                             <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
                                 <span class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project8.meta">Full Stack / 2025-2026</span>
-                                <span class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]">expand_more</span>
+                                <svg class="ico text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]" aria-hidden="true"><use href="#i-expand_more"/></svg>
                             </div>
                         </button>
                         <div class="project-content h-0 overflow-hidden">
@@ -462,7 +698,7 @@
                                         <a href="https://github.com/BuiattiPedronNazareno/MateKnow" target="_blank"
                                             class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
                                             <span data-i18n="work.viewOnGithub">View on GitHub</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
                                         </a>
                                     </div>
                                 </div>
@@ -495,193 +731,7 @@
                                     </div>
                                 </div>
                                 <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
-                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
-                                    <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
-                                    <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 9: Academic Generator — RAG -->
-                    <div class="project-accordion group border-b border-white/10 overflow-hidden transition-colors duration-500">
-                        <button class="project-header w-full py-16 flex flex-col md:flex-row justify-between items-start md:items-center text-left transition-colors duration-500 outline-none">
-                            <h3 class="font-headline text-4xl md:text-6xl text-white group-hover:text-[#8c8c8c] transition-colors duration-300">
-                                <span data-i18n="work.project9.title">Academic Generator — RAG</span></h3>
-                            <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
-                                <span class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project9.meta">Data Science / 2026</span>
-                                <span class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]">expand_more</span>
-                            </div>
-                        </button>
-                        <div class="project-content h-0 overflow-hidden">
-                            <div class="pb-12 pt-0 px-0 md:px-8">
-                                <div class="mb-12 max-w-3xl">
-                                    <p class="font-body text-lg text-neutral-300 leading-relaxed mb-6" data-i18n="work.project9.desc">
-                                        A retrieval-augmented generation system that crosses a relational database holding real academic records with a vector store of the degree syllabus. It writes study plans, trajectory reports and elective recommendations that cite concrete subjects and grades instead of inventing them.
-                                    </p>
-                                    <div class="flex flex-wrap gap-4 mb-6">
-                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">Python</span>
-                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">SQLite</span>
-                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">Chroma</span>
-                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">Ollama</span>
-                                    </div>
-                                    <div class="flex items-center gap-6 flex-wrap">
-                                        <a href="https://github.com/SimonOcampo1/generador-academico-rag" target="_blank"
-                                            class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
-                                            <span data-i18n="work.viewOnGithub">View on GitHub</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
-                                    <div class="flex gap-6 min-w-max">
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/rag/rag-1-app.webp" loading="lazy" alt="RAG web app" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/rag/rag-2-pipeline.webp" loading="lazy" alt="RAG pipeline" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/rag/rag-3-clustering.webp" loading="lazy" alt="Student clustering" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/rag/rag-4-radar.webp" loading="lazy" alt="Area radar" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/rag/rag-5-aporte.webp" loading="lazy" alt="RAG contribution" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/rag/rag-6-avance.webp" loading="lazy" alt="Yearly progress" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
-                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
-                                    <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
-                                    <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 10: Blockchain Mempool Simulation -->
-                    <div class="project-accordion group border-b border-white/10 overflow-hidden transition-colors duration-500">
-                        <button class="project-header w-full py-16 flex flex-col md:flex-row justify-between items-start md:items-center text-left transition-colors duration-500 outline-none">
-                            <h3 class="font-headline text-4xl md:text-6xl text-white group-hover:text-[#8c8c8c] transition-colors duration-300">
-                                <span data-i18n="work.project10.title">Blockchain Mempool Simulation</span></h3>
-                            <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
-                                <span class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project10.meta">Simulation / 2025</span>
-                                <span class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]">expand_more</span>
-                            </div>
-                        </button>
-                        <div class="project-content h-0 overflow-hidden">
-                            <div class="pb-12 pt-0 px-0 md:px-8">
-                                <div class="mb-12 max-w-3xl">
-                                    <p class="font-body text-lg text-neutral-300 leading-relaxed mb-6" data-i18n="work.project10.desc">
-                                        A discrete-event simulation of the Bitcoin mempool, from empirical data capture through to statistical analysis. Arrival processes are modelled by robust distribution fitting, and a factorial experimental design with ANOVA measures how arrival rate, fee distribution and block capacity drive network congestion.
-                                    </p>
-                                    <div class="flex flex-wrap gap-4 mb-6">
-                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">Python</span>
-                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">SimPy</span>
-                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">SciPy</span>
-                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">pandas</span>
-                                    </div>
-                                    <div class="flex items-center gap-6 flex-wrap">
-                                        <a href="https://github.com/SimonOcampo1/TP-Final-Simulacion-Mempool-Bitcoin" target="_blank"
-                                            class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
-                                            <span data-i18n="work.viewOnGithub">View on GitHub</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
-                                    <div class="flex gap-6 min-w-max">
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/mempool/mempool-0-modelo.webp" loading="lazy" alt="Simulation model architecture" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/mempool/mempool-1.webp" loading="lazy" alt="Mempool figure 1" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/mempool/mempool-2.webp" loading="lazy" alt="Mempool figure 2" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/mempool/mempool-3.webp" loading="lazy" alt="Mempool figure 3" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/mempool/mempool-4.webp" loading="lazy" alt="Mempool figure 4" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/mempool/mempool-5.webp" loading="lazy" alt="Mempool figure 5" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/mempool/mempool-6.webp" loading="lazy" alt="Mempool figure 6" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
-                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
-                                    <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
-                                    <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 11: Legacy Core — Memory Archive -->
-                    <div class="project-accordion group border-b border-white/10 overflow-hidden transition-colors duration-500">
-                        <button class="project-header w-full py-16 flex flex-col md:flex-row justify-between items-start md:items-center text-left transition-colors duration-500 outline-none">
-                            <h3 class="font-headline text-4xl md:text-6xl text-white group-hover:text-[#8c8c8c] transition-colors duration-300">
-                                <span data-i18n="work.project11.title">Legacy Core — Memory Archive</span></h3>
-                            <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
-                                <span class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project11.meta">Web App / 2026</span>
-                                <span class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]">expand_more</span>
-                            </div>
-                        </button>
-                        <div class="project-content h-0 overflow-hidden">
-                            <div class="pb-12 pt-0 px-0 md:px-8">
-                                <div class="mb-12 max-w-3xl">
-                                    <p class="font-body text-lg text-neutral-300 leading-relaxed mb-6" data-i18n="work.project11.desc">
-                                        A private multi-group memory archive built as a React single-page app. It holds a member directory with relational profiles, a shared timeline, a media gallery and long-form narratives, with filters that survive navigation.
-                                    </p>
-                                    <div class="flex flex-wrap gap-4 mb-6">
-                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">React 19</span>
-                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">TypeScript</span>
-                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">Appwrite</span>
-                                        <span class="px-4 py-2 border border-[#8c8c8c]/30 rounded-full text-xs text-[#8c8c8c] uppercase tracking-widest">GSAP</span>
-                                    </div>
-                                    <div class="flex items-center gap-6 flex-wrap">
-                                        <a href="https://github.com/SimonOcampo1/legacy-core" target="_blank"
-                                            class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
-                                            <span data-i18n="work.viewOnGithub">View on GitHub</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="w-full overflow-hidden pb-4 cursor-none relative group/carousel">
-                                    <div class="flex gap-6 min-w-max">
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/legacycore/legacycore-1-home.webp" loading="lazy" alt="Legacy Core home" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/legacycore/legacycore-2-timeline.webp" loading="lazy" alt="Legacy Core timeline" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/legacycore/legacycore-3-historias.webp" loading="lazy" alt="Legacy Core narratives" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/legacycore/legacycore-4-historia-detalle.webp" loading="lazy" alt="Reading a narrative" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/legacycore/legacycore-5-directorio.webp" loading="lazy" alt="Member directory" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                        <div class="w-[85vw] aspect-video md:w-[600px] bg-neutral-800 rounded-[2rem] overflow-hidden relative shrink-0 cursor-pointer group" onclick="openLightbox(this)">
-                                            <img src="./assets/img/projects/legacycore/legacycore-6-galeria.webp" loading="lazy" alt="Media gallery" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity rounded-[2rem]">
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
-                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <svg class="ico" style="font-size:0.9rem" aria-hidden="true"><use href="#i-open_in_full"/></svg>
                                     <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
                                     <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
                                 </p>
@@ -696,7 +746,7 @@
                                 <span data-i18n="work.project4.title">Architecture Studio Landing</span></h3>
                             <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
                                 <span class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project4.meta">Web Design / 2026</span>
-                                <span class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]">expand_more</span>
+                                <svg class="ico text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]" aria-hidden="true"><use href="#i-expand_more"/></svg>
                             </div>
                         </button>
                         <div class="project-content h-0 overflow-hidden">
@@ -715,12 +765,12 @@
                                         <a href="https://architecture-monolitico.vercel.app/" target="_blank"
                                             class="inline-flex items-center gap-2 text-[#8c8c8c] border-b border-[#8c8c8c]/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
                                             <span data-i18n="work.viewLive">View Live</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
                                         </a>
                                         <a href="https://github.com/SimonOcampo1/architecture-landing" target="_blank"
                                             class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
                                             <span data-i18n="work.viewOnGithub">View on GitHub</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
                                         </a>
                                     </div>
                                 </div>
@@ -753,7 +803,7 @@
                                     </div>
                                 </div>
                                 <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
-                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <svg class="ico" style="font-size:0.9rem" aria-hidden="true"><use href="#i-open_in_full"/></svg>
                                     <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
                                     <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
                                 </p>
@@ -768,7 +818,7 @@
                                 <span data-i18n="work.project5.title">STORM — Atmospheric Monitor</span></h3>
                             <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
                                 <span class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project5.meta">Web Experience / 2026</span>
-                                <span class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]">expand_more</span>
+                                <svg class="ico text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]" aria-hidden="true"><use href="#i-expand_more"/></svg>
                             </div>
                         </button>
                         <div class="project-content h-0 overflow-hidden">
@@ -787,12 +837,12 @@
                                         <a href="https://storm-sentinel.vercel.app/" target="_blank"
                                             class="inline-flex items-center gap-2 text-[#8c8c8c] border-b border-[#8c8c8c]/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
                                             <span data-i18n="work.viewLive">View Live</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
                                         </a>
                                         <a href="https://github.com/SimonOcampo1/storm-website" target="_blank"
                                             class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
                                             <span data-i18n="work.viewOnGithub">View on GitHub</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
                                         </a>
                                     </div>
                                 </div>
@@ -825,7 +875,7 @@
                                     </div>
                                 </div>
                                 <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
-                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <svg class="ico" style="font-size:0.9rem" aria-hidden="true"><use href="#i-open_in_full"/></svg>
                                     <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
                                     <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
                                 </p>
@@ -840,7 +890,7 @@
                                 <span data-i18n="work.project6.title">SCENT — Botanical Lab Landing</span></h3>
                             <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
                                 <span class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project6.meta">Web Design / 2026</span>
-                                <span class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]">expand_more</span>
+                                <svg class="ico text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]" aria-hidden="true"><use href="#i-expand_more"/></svg>
                             </div>
                         </button>
                         <div class="project-content h-0 overflow-hidden">
@@ -859,12 +909,12 @@
                                         <a href="https://botany-landing.vercel.app" target="_blank"
                                             class="inline-flex items-center gap-2 text-[#8c8c8c] border-b border-[#8c8c8c]/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
                                             <span data-i18n="work.viewLive">View Live</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
                                         </a>
                                         <a href="https://github.com/SimonOcampo1/botany-landing" target="_blank"
                                             class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
                                             <span data-i18n="work.viewOnGithub">View on GitHub</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
                                         </a>
                                     </div>
                                 </div>
@@ -888,7 +938,7 @@
                                     </div>
                                 </div>
                                 <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
-                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <svg class="ico" style="font-size:0.9rem" aria-hidden="true"><use href="#i-open_in_full"/></svg>
                                     <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
                                     <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
                                 </p>
@@ -911,8 +961,8 @@
                                 <span
                                     class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project1.meta">Software
                                     Development / 2023-Present</span>
-                                <span
-                                    class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]">expand_more</span>
+                                <svg
+                                    class="ico text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]" aria-hidden="true"><use href="#i-expand_more"/></svg>
                             </div>
                         </button>
 
@@ -938,7 +988,7 @@
                                         <a href="https://github.com/BaltaMolteni/IEC-ANV" target="_blank"
                                             class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
                                             <span data-i18n="work.viewOnGithub">View on GitHub</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
                                         </a>
                                     </div>
                                 </div>
@@ -976,14 +1026,14 @@
                                             <video src="./assets/img/projects/arsens/arsens-demo.mp4" class="w-full h-full object-cover rounded-[2rem]" muted loop playsinline preload="metadata"></video>
                                             <span class="absolute inset-0 flex items-center justify-center pointer-events-none">
                                                 <span class="w-12 h-12 rounded-full border border-white/40 bg-black/30 text-white inline-flex items-center justify-center">
-                                                    <span class="material-symbols-outlined text-xl">play_arrow</span>
+                                                    <svg class="ico text-xl" aria-hidden="true"><use href="#i-play_arrow"/></svg>
                                                 </span>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
-                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <svg class="ico" style="font-size:0.9rem" aria-hidden="true"><use href="#i-open_in_full"/></svg>
                                     <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
                                     <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
                                 </p>
@@ -1004,8 +1054,8 @@
                                 <span
                                     class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project2.meta">Web
                                     App / 2024-2025</span>
-                                <span
-                                    class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]">expand_more</span>
+                                <svg
+                                    class="ico text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]" aria-hidden="true"><use href="#i-expand_more"/></svg>
                             </div>
                         </button>
 
@@ -1029,7 +1079,7 @@
                                         <a href="https://github.com/mateogeffroy/KI-APP" target="_blank"
                                             class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
                                             <span data-i18n="work.viewOnGithub">View on GitHub</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
                                         </a>
                                     </div>
                                 </div>
@@ -1072,14 +1122,14 @@
                                             <video src="./assets/img/projects/kicenter/kicenter%206-demo.mp4" class="w-full h-full object-cover rounded-[2rem]" muted loop playsinline preload="metadata"></video>
                                             <span class="absolute inset-0 flex items-center justify-center pointer-events-none">
                                                 <span class="w-12 h-12 rounded-full border border-white/40 bg-black/30 text-white inline-flex items-center justify-center">
-                                                    <span class="material-symbols-outlined text-xl">play_arrow</span>
+                                                    <svg class="ico text-xl" aria-hidden="true"><use href="#i-play_arrow"/></svg>
                                                 </span>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
-                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <svg class="ico" style="font-size:0.9rem" aria-hidden="true"><use href="#i-open_in_full"/></svg>
                                     <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
                                     <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
                                 </p>
@@ -1099,8 +1149,8 @@
                             <div class="w-full md:w-auto flex items-center justify-between md:justify-start gap-8 mt-4 md:mt-0">
                                 <span
                                     class="font-body text-sm text-neutral-500 uppercase tracking-widest group-hover:text-white transition-colors duration-300" data-i18n="work.project3.meta">Product Design / 2026</span>
-                                <span
-                                    class="material-symbols-outlined text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]">expand_more</span>
+                                <svg
+                                    class="ico text-white transform transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#8c8c8c]" aria-hidden="true"><use href="#i-expand_more"/></svg>
                             </div>
                         </button>
 
@@ -1123,12 +1173,12 @@
                                         <a href="https://atlas-automotriz-sto.vercel.app/" target="_blank"
                                             class="inline-flex items-center gap-2 text-[#8c8c8c] border-b border-[#8c8c8c]/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
                                             <span data-i18n="work.viewLive">View Live</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
                                         </a>
                                         <a href="https://github.com/SimonOcampo1/atlas-automotriz" target="_blank"
                                             class="inline-flex items-center gap-2 text-neutral-500 border-b border-neutral-500/50 pb-1 hover:text-white hover:border-white transition-colors text-sm uppercase tracking-widest font-body">
                                             <span data-i18n="work.viewOnGithub">View on GitHub</span>
-                                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
                                         </a>
                                     </div>
                                 </div>
@@ -1174,7 +1224,7 @@
                                     </div>
                                 </div>
                                 <p class="mt-3 flex items-center justify-center gap-2 font-body text-xs text-neutral-500/60 uppercase tracking-widest select-none pointer-events-none">
-                                    <span class="material-symbols-outlined" style="font-size:0.9rem">open_in_full</span>
+                                    <svg class="ico" style="font-size:0.9rem" aria-hidden="true"><use href="#i-open_in_full"/></svg>
                                     <span class="carousel-hint-mobile" data-i18n="work.tapToEnlarge">Tap to enlarge</span>
                                     <span class="carousel-hint-desktop" data-i18n="work.clickToEnlarge">Click to enlarge</span>
                                 </p>
@@ -1218,7 +1268,7 @@
                         <a href="https://orcid.org/0009-0002-6246-9261" target="_blank"
                             class="inline-flex items-center gap-2 text-[#8c8c8c] border-b border-[#8c8c8c]/50 pb-1 hover:text-white hover:border-white transition-colors">
                             <span class="uppercase tracking-widest text-xs" data-i18n="academic.orcid">ORCID Profile</span>
-                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                            <svg class="ico text-sm" aria-hidden="true"><use href="#i-open_in_new"/></svg>
                         </a>
                     </div>
                     <div class="lg:col-span-8 flex flex-col gap-12">
@@ -1405,12 +1455,12 @@
                             <a href="https://www.linkedin.com/in/simon-ocampo/" target="_blank" 
                                 class="flex items-center gap-2 font-body text-lg text-neutral-400 hover:text-white transition-colors group">
                                 <span>LinkedIn</span>
-                                <span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span>
+                                <svg class="ico text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true"><use href="#i-arrow_outward"/></svg>
                             </a>
                             <a href="https://github.com/SimonOcampo1" target="_blank" 
                                 class="flex items-center gap-2 font-body text-lg text-neutral-400 hover:text-white transition-colors group">
                                 <span>GitHub</span>
-                                <span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">arrow_outward</span>
+                                <svg class="ico text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true"><use href="#i-arrow_outward"/></svg>
                             </a>
                         </div>
                     </div>
@@ -1432,13 +1482,13 @@
         <div id="lightbox-container" class="relative max-w-5xl max-h-full bg-transparent rounded-[1.5rem] shadow-[0_0_100px_rgba(0,0,0,0.8)] overflow-visible">
             <!-- Close Button (Positioned at the top right of the modal box) -->
             <button id="close-lightbox" class="absolute top-4 right-4 w-12 h-12 inline-flex items-center justify-center bg-white text-black rounded-full shadow-2xl hover:scale-110 transition-transform z-[120]" onclick="closeLightbox()">
-                <span class="material-symbols-outlined text-2xl">close</span>
+                <svg class="ico text-2xl" aria-hidden="true"><use href="#i-close"/></svg>
             </button>
             <button id="lightbox-prev" data-lightbox-nav class="absolute top-1/2 -translate-y-1/2 w-11 h-11 inline-flex items-center justify-center rounded-full border border-white/30 text-white bg-black/20 hover:border-[#8c8c8c] hover:text-[#8c8c8c] transition-colors z-[120]" aria-label="Previous media" onclick="navigateLightbox(-1)">
-                <span class="material-symbols-outlined text-xl">arrow_back</span>
+                <svg class="ico text-xl" aria-hidden="true"><use href="#i-arrow_back"/></svg>
             </button>
             <button id="lightbox-next" data-lightbox-nav class="absolute top-1/2 -translate-y-1/2 w-11 h-11 inline-flex items-center justify-center rounded-full border border-white/30 text-white bg-black/20 hover:border-[#8c8c8c] hover:text-[#8c8c8c] transition-colors z-[120]" aria-label="Next media" onclick="navigateLightbox(1)">
-                <span class="material-symbols-outlined text-xl">arrow_forward</span>
+                <svg class="ico text-xl" aria-hidden="true"><use href="#i-arrow_forward"/></svg>
             </button>
             <div id="lightbox-content" class="flex items-center justify-center rounded-[1.5rem] overflow-hidden">
                 <!-- Content injected via JS -->

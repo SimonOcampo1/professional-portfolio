@@ -178,7 +178,7 @@ carouselWrappers.forEach((wrapper) => {
         mobilePrevButton.className = 'carousel-mobile-nav';
         mobilePrevButton.type = 'button';
         mobilePrevButton.setAttribute('aria-label', 'Previous image');
-        mobilePrevButton.innerHTML = '<span class="material-symbols-outlined">arrow_back</span>';
+        mobilePrevButton.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-arrow_back"/></svg>';
         mobilePrevButton.addEventListener('click', () => goToMobileIndex(currentMobileIndex - 1));
 
         mobileCounter = document.createElement('span');
@@ -188,7 +188,7 @@ carouselWrappers.forEach((wrapper) => {
         mobileNextButton.className = 'carousel-mobile-nav';
         mobileNextButton.type = 'button';
         mobileNextButton.setAttribute('aria-label', 'Next image');
-        mobileNextButton.innerHTML = '<span class="material-symbols-outlined">arrow_forward</span>';
+        mobileNextButton.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-arrow_forward"/></svg>';
         mobileNextButton.addEventListener('click', () => goToMobileIndex(currentMobileIndex + 1));
 
         mobileControls.appendChild(mobilePrevButton);
@@ -306,7 +306,11 @@ function resetScrollToTop() {
 
 resetScrollToTop();
 document.addEventListener('DOMContentLoaded', resetScrollToTop);
-window.addEventListener('pageshow', resetScrollToTop);
+// Solo al volver desde el bfcache. Sin el guard, `pageshow` dispara despues de
+// `load`: si un recurso externo tarda, el reset llega cuando el usuario ya
+// scrolleo y lo tira de vuelta al tope. Para un reload normal ya alcanza con
+// history.scrollRestoration = 'manual', tres lineas mas arriba.
+window.addEventListener('pageshow', (e) => { if (e.persisted) resetScrollToTop(); });
 window.addEventListener('beforeunload', () => {
     window.scrollTo(0, 0);
 });
@@ -325,7 +329,7 @@ projectAccordions.forEach((accordion) => {
             if (other !== accordion) {
                 other.classList.remove('active');
                 const otherContent = other.querySelector('.project-content');
-                const otherIcon = other.querySelector('.material-symbols-outlined');
+                const otherIcon = other.querySelector('.ico');
                 gsap.to(otherContent, { height: 0, opacity: 0, duration: 0.5, ease: "power2.inOut" });
                 if(otherIcon) gsap.to(otherIcon, { rotation: 0, duration: 0.3 });
             }
@@ -334,7 +338,7 @@ projectAccordions.forEach((accordion) => {
         if (!isActive) {
             accordion.classList.add('active');
             gsap.to(content, { height: "auto", opacity: 1, duration: 0.6, ease: "power2.out" });
-            const icon = header.querySelector('.material-symbols-outlined');
+            const icon = header.querySelector('.ico');
             if(icon) gsap.to(icon, { rotation: 90, duration: 0.3 });
 
             const accordionCarousels = content.querySelectorAll('.group\\/carousel');
@@ -348,7 +352,7 @@ projectAccordions.forEach((accordion) => {
         } else {
             accordion.classList.remove('active');
             gsap.to(content, { height: 0, opacity: 0, duration: 0.5, ease: "power2.inOut" });
-            const icon = header.querySelector('.material-symbols-outlined');
+            const icon = header.querySelector('.ico');
             if(icon) gsap.to(icon, { rotation: 0, duration: 0.3 });
         }
     });
@@ -458,6 +462,9 @@ const translations = {
         'work.project11.title': 'Legacy Core — Memory Archive',
         'work.project11.meta': 'Web App / 2026',
         'work.project11.desc': 'A private multi-group memory archive built as a React single-page app. It holds a member directory with relational profiles, a shared timeline, a media gallery and long-form narratives, with filters that survive navigation.',
+        'work.project12.title': 'Machine Learning · Estudio',
+        'work.project12.meta': 'Learning Site / 2026',
+        'work.project12.desc': 'A machine learning study site built for two friends starting from zero: 24 topics across 6 phases, from what a variable is to neural networks. Diagrams draw themselves on scroll, exercises are graded in the browser, and progress is written to localStorage before the network so it survives a failed request.',
         'academic.sectionLabel': 'Academic Research',
         'academic.title': 'Philosophy of Religion & Analytic Theology',
         'academic.desc': 'Independent research published in international journals and indexed repositories. Focusing on stage II cosmological arguments and historical reliability of religious texts.',
@@ -526,6 +533,9 @@ const translations = {
         'work.project11.title': 'Legacy Core — Archivo de Memoria',
         'work.project11.meta': 'Web App / 2026',
         'work.project11.desc': 'Un archivo digital privado para varios grupos, hecho como SPA en React. Reúne un directorio de miembros con perfiles relacionales, una línea de tiempo compartida, una galería de medios y narrativas largas, con filtros que sobreviven a la navegación.',
+        'work.project12.title': 'Machine Learning · Estudio',
+        'work.project12.meta': 'Sitio de Estudio / 2026',
+        'work.project12.desc': 'Un sitio de estudio de machine learning hecho para dos amigos que arrancan de cero: 24 temas en 6 fases, desde qué es una variable hasta redes neuronales. Los diagramas se trazan solos al hacer scroll, los ejercicios se corrigen en el navegador y el progreso se escribe en localStorage antes que en la red, así sobrevive a un request fallido.',
         'academic.sectionLabel': 'Investigación Académica',
         'academic.title': 'Filosofía de la Religión y Teología Analítica',
         'academic.desc': 'Investigación independiente publicada en revistas internacionales y repositorios indexados. Con foco en argumentos cosmológicos de fase II y la confiabilidad histórica de textos religiosos.',
@@ -665,24 +675,35 @@ function initScrollRevealAnimations() {
         });
     });
     
-    // Animate project cards — use batch to group simultaneous entries and prevent competing animations
+    // Los proyectos entran TODOS JUNTOS con un unico disparador sobre la seccion.
+    // Antes era un ScrollTrigger.batch por fila: scrolleando rapido se le gana a
+    // la animacion y se ve el tablero gris mientras las filas aparecen de a una.
+    // Un solo trigger, disparado una pantalla antes, sin stagger: no hay forma de
+    // llegar antes que la animacion.
     const projectCards = gsap.utils.toArray('.project-accordion');
-    ScrollTrigger.batch(projectCards, {
-        onEnter: (batch) => {
-            batch.forEach(el => { el.dataset.revealed = 'true'; });
-            gsap.to(batch, {
+    const workSection = document.querySelector('#work');
+    if (projectCards.length && workSection) {
+        const mostrarProyectos = () => {
+            projectCards.forEach(el => { el.dataset.revealed = 'true'; });
+            gsap.to(projectCards, {
                 autoAlpha: 1,
                 y: 0,
-                duration: 0.65,
-                stagger: 0.07,
-                ease: "power3.out",
+                duration: 0.4,
+                ease: "power2.out",
                 overwrite: true,
                 clearProps: "all"
             });
-        },
-        start: "top 95%",
-        once: true
-    });
+        };
+        ScrollTrigger.create({
+            trigger: workSection,
+            start: "top bottom+=100%",
+            once: true,
+            onEnter: mostrarProyectos
+        });
+        // Si al cargar la seccion ya esta cerca (entrada por ancla o recarga a
+        // media pagina), el trigger no dispara: se muestran igual.
+        if (workSection.getBoundingClientRect().top < window.innerHeight * 2) mostrarProyectos();
+    }
     
     // Animate grid items
     document.querySelectorAll('section:not(#hero) .grid').forEach((grid) => {
@@ -821,8 +842,8 @@ const lightbox = document.getElementById('lightbox');
 const lightboxContent = document.getElementById('lightbox-content');
 const lightboxContainer = document.getElementById('lightbox-container');
 const lightboxNavButtons = document.querySelectorAll('[data-lightbox-nav]');
-const lightboxPrevIcon = document.querySelector('#lightbox-prev .material-symbols-outlined');
-const lightboxNextIcon = document.querySelector('#lightbox-next .material-symbols-outlined');
+const lightboxPrevIcon = document.querySelector('#lightbox-prev .ico');
+const lightboxNextIcon = document.querySelector('#lightbox-next .ico');
 let currentMediaItems = [];
 let currentMediaIndex = -1;
 
