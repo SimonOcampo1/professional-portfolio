@@ -1569,13 +1569,13 @@ body {
 
 /* Dynamic viewport height fix — fix-dynamic-viewport skill applied.
    #hero is a flow element: using 100svh keeps it stable during mobile browser bar show/hide.
-   Cascade: 100vh (universal fallback) → calc(var(--vh)*100) (JS-set) → 100svh (native, best). */
+   Cascade: 100vh (fallback antiguo) → 100svh (nativo, estable con la barra del navegador).
+   El paso intermedio con --vh se saco: 100svh gana siempre en navegadores actuales,
+   asi que el JS que lo escribia solo forzaba recalculo de estilos en cada resize. */
 
 #hero {
   height: 100vh;
   /* universal fallback */
-  height: calc(var(--vh, 1vh) * 100);
-  /* JS-set once on load, debounced on resize */
   height: 100svh;
   /* Chrome 108+, Safari 15.4+, Firefox 101+ — stable, no reflow */
 }

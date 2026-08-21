@@ -4,26 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        // fix-dynamic-viewport: Set --vh once on load using initial visible viewport size.
-        // DO NOT update on scroll — only on true resize (orientation, window snap).
-        // CSS cascade: 100vh → calc(var(--vh)*100) → 100svh (see input.css #hero).
-        (function () {
-            function setVH() {
-                document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
-            }
-            setVH(); // run once on load
-            var _vhTimer;
-            window.addEventListener('resize', function () {
-                clearTimeout(_vhTimer);
-                _vhTimer = setTimeout(setVH, 150); // debounced — avoids firing on bar show/hide
-            });
-            window.addEventListener('orientationchange', function () {
-                clearTimeout(_vhTimer);
-                _vhTimer = setTimeout(setVH, 200);
-            });
-        })();
-    </script>
     <title>Simón Ocampo</title>
     <link rel="icon" type="image/png" href="./assets/img/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">

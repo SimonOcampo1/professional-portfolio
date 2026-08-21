@@ -404,27 +404,35 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     });
 });
 
-// --- 6. HERO PARALLAX ---
-if(document.querySelector(".hero-img-wrapper")) {
-    // yPercent: 15 con scale: 1.1 no cerraba: escalar un 10% deja 5% de sobrante
-    // arriba, y el desplazamiento pedia 15%. El 10% restante quedaba en blanco.
-    // Con scale 1.25 el sobrante es 12.5%, por encima del 10% que se desplaza.
-    gsap.to(".hero-img-wrapper img", {
-        yPercent: 10,
-        scale: 1.25,
-        ease: "none",
-        scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true }
-    });
-}
-
-if(document.querySelector("#hero h1")) {
-    gsap.to("#hero h1", {
-        yPercent: 50,
-        opacity: 0.5,
-        ease: "none",
-        scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true }
-    });
-}
+// --- 6. HERO PARALLAX (solo desktop) ---
+// En mobile el parallax no va. La foto del hero es vertical y ocupa toda la
+// pantalla: escalarla y desplazarla sobre un viewport angosto descuadra el
+// encuadre, y cualquier cambio de alto (la barra del navegador que aparece y
+// desaparece) deja la animacion a mitad de camino, con la imagen corrida o
+// zoomeada al volver arriba. matchMedia limpia las transformaciones solas al
+// cruzar el breakpoint, asi que en mobile el hero queda exactamente como se
+// diseno, sin transform alguno.
+gsap.matchMedia().add("(min-width: 768px)", () => {
+    if (document.querySelector(".hero-img-wrapper img")) {
+        // El sobrante arriba es alto*(scale-1)/2 y el desplazamiento alto*yPercent/100,
+        // asi que hace falta scale >= 1 + 2*yPercent/100. Para yPercent 10, 1.20 es el
+        // minimo exacto; 1.22 deja un margen para que nunca se vea el borde.
+        gsap.to(".hero-img-wrapper img", {
+            yPercent: 10,
+            scale: 1.22,
+            ease: "none",
+            scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true }
+        });
+    }
+    if (document.querySelector("#hero h1")) {
+        gsap.to("#hero h1", {
+            yPercent: 50,
+            opacity: 0.5,
+            ease: "none",
+            scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true }
+        });
+    }
+});
 
 // --- 7. LANGUAGE TOGGLE & TRANSLATIONS ---
 const translations = {
