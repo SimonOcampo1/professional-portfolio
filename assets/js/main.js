@@ -1,6 +1,13 @@
 // Register GSAP Plugins
 gsap.registerPlugin(ScrollTrigger);
 
+// En mobile, mostrar u ocultar la barra del navegador cambia innerHeight y dispara
+// resize. Sin esto ScrollTrigger recalcula start/end a mitad de un scrub y la
+// animacion del hero no vuelve a progreso 0 al llegar arriba: la imagen queda
+// corrida hacia abajo y deja una franja vacia. ignoreMobileResize solo atiende
+// los cambios reales de viewport (rotacion), no el vaiven de la barra.
+ScrollTrigger.config({ ignoreMobileResize: true });
+
 // Prevent GSAP ticker from sleeping on mobile (iOS Safari throttles rAF until user interaction)
 gsap.ticker.lagSmoothing(0);
 document.addEventListener("visibilitychange", () => {
@@ -399,11 +406,14 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 
 // --- 6. HERO PARALLAX ---
 if(document.querySelector(".hero-img-wrapper")) {
+    // yPercent: 15 con scale: 1.1 no cerraba: escalar un 10% deja 5% de sobrante
+    // arriba, y el desplazamiento pedia 15%. El 10% restante quedaba en blanco.
+    // Con scale 1.25 el sobrante es 12.5%, por encima del 10% que se desplaza.
     gsap.to(".hero-img-wrapper img", {
-        yPercent: 15,
-        scale: 1.1,
+        yPercent: 10,
+        scale: 1.25,
         ease: "none",
-        scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true }
+        scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true }
     });
 }
 
@@ -412,7 +422,7 @@ if(document.querySelector("#hero h1")) {
         yPercent: 50,
         opacity: 0.5,
         ease: "none",
-        scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true }
+        scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true }
     });
 }
 
