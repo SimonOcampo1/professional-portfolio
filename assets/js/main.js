@@ -205,6 +205,9 @@ carouselWrappers.forEach((wrapper) => {
     };
 
     handleResponsiveGallery();
+    // Las carousels dentro de #projects-extra arrancan con display:none, o sea ancho 0,
+    // asi que updateMax() les deja maxScroll en 0. Se re-miden al desplegarlas.
+    wrapper.refreshCarousel = handleResponsiveGallery;
     window.addEventListener('resize', handleResponsiveGallery);
     window.addEventListener('load', handleResponsiveGallery);
 
@@ -440,6 +443,21 @@ const translations = {
         'work.project5.desc': 'A cinematic web experience for monitoring the Catatumbo Lightning phenomenon. Cyber-noir aesthetic with React, dynamic video backgrounds, real-time telemetry panels, and GSAP choreography.',
         'work.project6.title': 'SCENT — Botanical Lab Landing', 'work.project6.meta': 'Web Design / 2026',
         'work.project6.desc': 'An immersive landing for an olfactory memory laboratory preserving extinct species\' fragrances. Premium botanical aesthetic with parallax backgrounds, GSAP cinematic entries, and dynamic ScrollSpy navigation.',
+        'work.project7.title': 'Braingent STO — Agentic OS',
+        'work.project7.meta': 'Agentic OS / 2026',
+        'work.project7.desc': 'An orchestration layer over CLI coding agents: sessions, cross-machine sync and a knowledge vault. The backend is written against the Python standard library alone, with no runtime dependencies, and ships a terminal UI plus a React dashboard with a 3D knowledge graph.',
+        'work.project8.title': 'MateKnow — Learning Platform',
+        'work.project8.meta': 'Full Stack / 2025-2026',
+        'work.project8.desc': 'A gamified educational platform built on Next.js and NestJS over PostgreSQL. Real-time competitive modes over WebSockets run and validate mathematics challenges written in LaTeX and programming exercises checked against automated tests.',
+        'work.project9.title': 'Academic Generator — RAG',
+        'work.project9.meta': 'Data Science / 2026',
+        'work.project9.desc': 'A retrieval-augmented generation system that crosses a relational database holding real academic records with a vector store of the degree syllabus. It writes study plans, trajectory reports and elective recommendations that cite concrete subjects and grades instead of inventing them.',
+        'work.project10.title': 'Blockchain Mempool Simulation',
+        'work.project10.meta': 'Simulation / 2025',
+        'work.project10.desc': 'A discrete-event simulation of the Bitcoin mempool, from empirical data capture through to statistical analysis. Arrival processes are modelled by robust distribution fitting, and a factorial experimental design with ANOVA measures how arrival rate, fee distribution and block capacity drive network congestion.',
+        'work.project11.title': 'Legacy Core — Memory Archive',
+        'work.project11.meta': 'Web App / 2026',
+        'work.project11.desc': 'A private multi-group memory archive built as a React single-page app. It holds a member directory with relational profiles, a shared timeline, a media gallery and long-form narratives, with filters that survive navigation.',
         'academic.sectionLabel': 'Academic Research',
         'academic.title': 'Philosophy of Religion & Analytic Theology',
         'academic.desc': 'Independent research published in international journals and indexed repositories. Focusing on stage II cosmological arguments and historical reliability of religious texts.',
@@ -493,6 +511,21 @@ const translations = {
         'work.project5.desc': 'Una experiencia web cinematográfica dedicada al monitoreo del Relámpago del Catatumbo. Estética cyber-noir con React, fondos de video dinámicos y paneles de telemetría.',
         'work.project6.title': 'SCENT — Landing Laboratorio Botánico', 'work.project6.meta': 'Diseño Web / 2026',
         'work.project6.desc': 'Una landing inmersiva para un laboratorio de memoria olfativa que preserva fragancias de especies extintas. Estética botánica premium con fondos parallax y entradas cinematográficas GSAP.',
+        'work.project7.title': 'Braingent STO — Agentic OS',
+        'work.project7.meta': 'Agentic OS / 2026',
+        'work.project7.desc': 'Una capa de orquestación sobre agentes de código por CLI: sesiones, sincronización entre máquinas y un vault de conocimiento. El backend está escrito solo contra la biblioteca estándar de Python, sin dependencias de runtime, y viene con una interfaz de terminal más un dashboard en React con grafo de conocimiento en 3D.',
+        'work.project8.title': 'MateKnow — Plataforma Educativa',
+        'work.project8.meta': 'Full Stack / 2025-2026',
+        'work.project8.desc': 'Plataforma educativa gamificada en Next.js y NestJS sobre PostgreSQL. Los modos competitivos en tiempo real por WebSockets ejecutan y validan desafíos de matemática escritos en LaTeX y ejercicios de programación corregidos contra tests automatizados.',
+        'work.project9.title': 'Generador Académico — RAG',
+        'work.project9.meta': 'Ciencia de Datos / 2026',
+        'work.project9.desc': 'Un sistema de generación aumentada por recuperación que cruza una base relacional con historial académico real y un vector store con el plan de estudios de la carrera. Redacta planes de cursada, informes de trayectoria y recomendaciones de electivas citando materias y notas concretas en vez de inventarlas.',
+        'work.project10.title': 'Simulación de Mempool Blockchain',
+        'work.project10.meta': 'Simulación / 2025',
+        'work.project10.desc': 'Una simulación de eventos discretos de la mempool de Bitcoin, desde la captura de datos empíricos hasta el análisis estadístico. El proceso de llegadas se modela con ajuste robusto de distribuciones, y un diseño experimental factorial con ANOVA mide cómo la tasa de llegada, la distribución de comisiones y la capacidad del bloque empujan a la red hacia la congestión.',
+        'work.project11.title': 'Legacy Core — Archivo de Memoria',
+        'work.project11.meta': 'Web App / 2026',
+        'work.project11.desc': 'Un archivo digital privado para varios grupos, hecho como SPA en React. Reúne un directorio de miembros con perfiles relacionales, una línea de tiempo compartida, una galería de medios y narrativas largas, con filtros que sobreviven a la navegación.',
         'academic.sectionLabel': 'Investigación Académica',
         'academic.title': 'Filosofía de la Religión y Teología Analítica',
         'academic.desc': 'Investigación independiente publicada en revistas internacionales y repositorios indexados. Con foco en argumentos cosmológicos de fase II y la confiabilidad histórica de textos religiosos.',
@@ -1000,12 +1033,23 @@ if (viewAllBtn && projectsExtra) {
                 btnLabel.textContent = translations[currentLang]['work.collapse'] || 'View Less';
             }
             projectsExtra.style.display = 'block';
+
+            // Recien ahora estos nodos tienen medidas reales: hay que re-medir las carousels
+            // y recalcular las posiciones de ScrollTrigger, que se calcularon con todo oculto.
+            carouselWrappers.forEach((carousel) => {
+                if (!projectsExtra.contains(carousel)) return;
+                if (typeof carousel.refreshCarousel === 'function') carousel.refreshCarousel();
+            });
+            ScrollTrigger.refresh();
+
             gsap.fromTo(extraCards,
                 { autoAlpha: 0, y: 40 },
                 {
                     autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.08, ease: 'power3.out',
                     onComplete: () => {
                         extraCards.forEach(el => { el.dataset.revealed = 'true'; });
+                        // los hijos revelables (h3, grillas) quedaron en autoAlpha 0 desde el load
+                        revealMissedScrollAnimations();
                     }
                 }
             );
