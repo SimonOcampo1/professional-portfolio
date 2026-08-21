@@ -882,12 +882,14 @@ function updateLightboxNavigationVisibility() {
 }
 
 function syncLightboxNavDirection() {
-    if (lightboxPrevIcon) {
-        lightboxPrevIcon.textContent = 'arrow_back';
-    }
-    if (lightboxNextIcon) {
-        lightboxNextIcon.textContent = 'arrow_forward';
-    }
+    // Los iconos son <svg><use href="#i-..."/></svg>. Escribirles textContent borra
+    // el <use> y la flecha desaparece: hay que cambiar el simbolo referenciado.
+    const apuntar = (svg, nombre) => {
+        const use = svg && svg.querySelector('use');
+        if (use) use.setAttribute('href', '#i-' + nombre);
+    };
+    apuntar(lightboxPrevIcon, 'arrow_back');
+    apuntar(lightboxNextIcon, 'arrow_forward');
 }
 
 function openLightbox(cardElement) {
